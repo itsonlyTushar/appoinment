@@ -1,44 +1,45 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
+
+  const onSubmit = (data) => {
+    regi
   };
 
   return (
     <main className="min-h-screen bg-background flex items-center justify-center p-4">
-      <section className="bg-surface w-full max-w-[400px] rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-body/10 p-8">
+      <section className="bg-surface w-full max-w-100 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-body/10 p-8">
 
         <header className="text-center mb-6">
           <h1 className="text-2xl font-heading font-bold text-heading mb-1.5">Welcome Back</h1>
           <p className="text-body text-sm">Sign in to manage your appointments</p>
         </header>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-1.5">
             <label className="text-sm font-medium text-heading">Email Address</label>
             <Input
               type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
               placeholder="john.doe@example.com"
-              required
+              {...register('email', {
+                required: 'Email is required',
+                validate: (value) => value.trim() !== '' || 'Please enter a valid email',
+              })}
             />
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email.message}</p>
+            )}
           </div>
 
           <div className="space-y-1.5">
@@ -48,12 +49,15 @@ const Login = () => {
             </div>
             <Input
               type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
               placeholder="••••••••"
-              required
+              {...register('password', {
+                required: 'Password is required',
+                validate: (value) => value.trim() !== '' || 'Please enter a valid password',
+              })}
             />
+            {errors.password && (
+              <p className="text-sm text-red-500">{errors.password.message}</p>
+            )}
           </div>
 
           <Button type="submit" className="w-full py-2.5">

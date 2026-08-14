@@ -10,9 +10,9 @@ export default function AppRoutes() {
     <Routes>
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Landing />} />
-      </Route>
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
+      </Route>
 
       {/* Auth Routes  */}
       <Route path='/profile' element={<Profile />} />

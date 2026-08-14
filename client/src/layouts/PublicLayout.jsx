@@ -4,7 +4,7 @@ export default function PublicLayout() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Navbar */}
-      <nav className="w-full bg-surface border-b border-body/10 py-4 px-6 md:px-12 flex items-center justify-between shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
+      <nav className="w-full bg-surface border-b border-body/10 py-3 px-6 md:px-12 flex items-center justify-between shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
         <Link to="/" className="text-xl font-heading font-bold text-primary">
           DocAppoint
         </Link>

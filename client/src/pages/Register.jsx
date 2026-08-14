@@ -1,26 +1,35 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
+import { registerFields } from '../constants/fields/register';
+import { useRegister } from '../hooks/mutations/useAuthMutate';
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const { mutate, isPending } = useRegister();
+
+  const onSubmit = (data) => {
+    const { confirmPassword, ...payload } = data;
+    mutate(payload, {
+      onSuccess: (res) => {
+        console.log('Registration successful!', res);
+        // Optionally redirect or show success message here
+      },
+      onError: (err) => {
+        console.error('Registration failed:', err);
+      },
+    });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
+  const password = watch('password');
 
   return (
     <main className="min-h-screen bg-background flex items-center justify-center p-4">
@@ -32,71 +41,35 @@ const Register = () => {
           <p className="text-body text-sm">Join us to manage your health seamlessly</p>
         </header>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
-              <label className="text-sm font-medium text-heading">First Name</label>
+        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-y-4 gap-x-3">
+          {registerFields.map((field) => (
+            <div key={field.name} className={`space-y-1.5 ${field.halfWidth ? 'col-span-1' : 'col-span-2'}`}>
+              <label className="text-sm font-medium text-heading">{field.label}</label>
               <Input
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                placeholder="John"
-                required
+                type={field.type}
+                placeholder={field.placeholder}
+                {...register(field.name, {
+                  required: field.required,
+                  validate: field.name === 'confirmPassword'
+                    ? (value) => {
+                        if (value.trim() === '') return field.invalidMessage;
+                        if (value !== password) return 'Passwords do not match';
+                        return true;
+                      }
+                    : (value) => value.trim() !== '' || field.invalidMessage,
+                })}
               />
+              {errors[field.name] && (
+                <p className="text-sm text-red-500">{errors[field.name].message}</p>
+              )}
             </div>
-            <div className="space-y-1.5">
-              <label className="text-sm font-medium text-heading">Last Name</label>
-              <Input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                placeholder="Doe"
-                required
-              />
-            </div>
-          </div>
+          ))}
 
-          <div className="space-y-1.5">
-            <label className="text-sm font-medium text-heading">Email Address</label>
-            <Input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="john.doe@example.com"
-              required
-            />
+          <div className="col-span-2">
+            <Button type="submit" disabled={isPending} className="w-full py-2.5 mt-1 disabled:opacity-70">
+              {isPending ? 'Creating Account...' : 'Create Account'}
+            </Button>
           </div>
-
-          <div className="space-y-1.5">
-            <label className="text-sm font-medium text-heading">Password</label>
-            <Input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="••••••••"
-              required
-            />
-          </div>
-
-          <div className="space-y-1.5">
-            <label className="text-sm font-medium text-heading">Confirm Password</label>
-            <Input
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="••••••••"
-              required
-            />
-          </div>
-
-          <Button type="submit" className="w-full py-2.5">
-            Create Account
-          </Button>
         </form>
 
         <div className="relative my-6">

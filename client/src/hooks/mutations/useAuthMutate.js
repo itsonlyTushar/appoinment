@@ -1,0 +1,9 @@
+import {useMutation} from '@tanstack/react-query'
+import { registerUser } from '../../api/auth.api'
+
+// MUTATION TO HOOK FOR THE REGISTRATION.
+export function useRegister() {
+    return useMutation({
+        mutationFn: registerUser
+    })
+}
