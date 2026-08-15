@@ -54,7 +54,7 @@ const Login = () => {
       <section className="bg-surface w-full max-w-100 rounded-2xl border border-body/10 shadow-[0_4px_20px_rgb(0,0,0,0.03)] p-8">
 
         <header className="text-center mb-6">
-          <h1 className="text-2xl font-heading font-bold text-heading mb-1.5">Welcome Back</h1>
+          <h1 className="text-2xl font-heading font-bold text-heading mb-1.5">Patient Login</h1>
           <p className="text-body text-sm">Sign in to manage your appointments</p>
         </header>
 

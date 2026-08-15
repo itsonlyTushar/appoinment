@@ -45,7 +45,8 @@ const Register = () => {
       <section className="bg-surface w-full max-w-[400px] rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-body/10 p-8">
 
         <header className="text-center mb-4">
-          <h1 className="text-2xl font-heading font-bold text-heading mb-1.5">Create Account</h1>
+          <h1 className="text-2xl font-heading font-bold text-heading mb-1.5">Patient Registration</h1>
+          <p className="text-body text-sm">Register yourself as a patient</p>
         </header>
 
         {error && (

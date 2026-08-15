@@ -1,23 +1,18 @@
 import { MdCollectionsBookmark } from "react-icons/md";
-import { MdMedicalServices } from "react-icons/md";
 import { LuHistory } from "react-icons/lu";
 import { IoPersonCircleOutline } from "react-icons/io5";
 
+// PRIVATE NAVIGATION ROUTE LINKS 
 export const navItems = [
   {
-    label: "Services",
-    icon: MdMedicalServices,
-    href: "/services",
-  },
-  {
-    label: "Book Appoinment",
+    label: "Book Appointment",
     icon: MdCollectionsBookmark,
     href: "/book",
   },
   {
-    label: "My Appoinments",
+    label: "My Appointments",
     icon: LuHistory,
-    href: "/appoinments",
+    href: "/appointment",
   },
   {
     label: "Profile",
