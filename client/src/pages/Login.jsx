@@ -1,31 +1,70 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { FcGoogle } from 'react-icons/fc';
+import { PiSpinnerGap } from 'react-icons/pi';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
+import { userLogin } from '../features/actions/authActions';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.auth);
+
+  const savedEmail = localStorage.getItem('rememberedEmail') || '';
+
+  // INITIALIZATION FOR FORM STATE, VALIDATION, AND SUBMISSION HANDLING
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: savedEmail,
+      password: '',
+      rememberMe: Boolean(savedEmail),
+    },
+  });
 
-
-
-  const onSubmit = (data) => {
-    regi
+  // HANDLE USER LOGIN FORM SUBMISSION
+  const onSubmit = async (data) => {
+    const { email, password, rememberMe } = data;
+    try {
+      const res = await dispatch(userLogin({ email, password }));
+      if (rememberMe) {
+        localStorage.setItem('rememberedEmail', email);
+      } else {
+        localStorage.removeItem('rememberedEmail');
+      }
+      if (res?.token) {
+        localStorage.setItem('token', res.token);
+        if (res?.user) {
+          localStorage.setItem('user', JSON.stringify(res.user));
+        }
+      }
+      navigate('/profile');
+    } catch (err) {
+      console.error('Error in login', err);
+    }
   };
 
   return (
     <main className="min-h-screen bg-background flex items-center justify-center p-4">
-      <section className="bg-surface w-full max-w-100 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-body/10 p-8">
+      <section className="bg-surface w-full max-w-100 rounded-2xl border border-body/10 shadow-[0_4px_20px_rgb(0,0,0,0.03)] p-8">
 
         <header className="text-center mb-6">
           <h1 className="text-2xl font-heading font-bold text-heading mb-1.5">Welcome Back</h1>
           <p className="text-body text-sm">Sign in to manage your appointments</p>
         </header>
 
+        {error && (
+          <div className="p-3 mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg">
+            {error}
+          </div>
+        )}
+
+        {/* LOGIN FORM */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-1.5">
             <label className="text-sm font-medium text-heading">Email Address</label>
@@ -43,10 +82,7 @@ const Login = () => {
           </div>
 
           <div className="space-y-1.5">
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium text-heading">Password</label>
-              <a href="#" className="text-xs font-medium text-primary hover:text-primary/80 transition-colors">Forgot password?</a>
-            </div>
+            <label className="text-sm font-medium text-heading">Password</label>
             <Input
               type="password"
               placeholder="••••••••"
@@ -60,8 +96,27 @@ const Login = () => {
             )}
           </div>
 
-          <Button type="submit" className="w-full py-2.5">
-            Sign In
+          <div className="flex items-center justify-between pt-1">
+            <label htmlFor="rememberMe" className="flex items-center gap-2 cursor-pointer select-none">
+              <Input
+                type="checkbox"
+                id="rememberMe"
+                {...register('rememberMe')}
+              />
+              <span className="text-sm text-body hover:text-heading transition-colors">Remember me</span>
+            </label>
+            <a href="#" className="text-xs font-medium text-primary hover:text-primary/80 transition-colors">Forgot password?</a>
+          </div>
+
+          <Button type="submit" disabled={loading} className="w-full py-2.5 disabled:opacity-70 gap-2">
+            {loading ? (
+              <>
+                <PiSpinnerGap className="animate-spin text-lg" />
+                <span>Signing In</span>
+              </>
+            ) : (
+              'Sign In'
+            )}
           </Button>
         </form>
 

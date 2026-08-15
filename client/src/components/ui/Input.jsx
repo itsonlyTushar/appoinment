@@ -1,14 +1,28 @@
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
-export default function Input({ className = '', type = 'text', ...props }) {
+const Input = forwardRef(function Input({ className = '', type = 'text', id, ...props }, ref) {
   const [showPassword, setShowPassword] = useState(false);
+
+  if (type === 'checkbox' || type === 'radio') {
+    return (
+      <input
+        ref={ref}
+        type={type}
+        id={id}
+        className={`w-4 h-4 rounded border-body/30 text-primary accent-primary cursor-pointer transition-colors ${className}`}
+        {...props}
+      />
+    );
+  }
 
   if (type === 'password') {
     return (
       <div className="relative w-full">
         <input
+          ref={ref}
           type={showPassword ? 'text' : 'password'}
+          id={id}
           className={`w-full px-4 py-2.5 rounded-lg border border-body/20 bg-background focus:bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-heading placeholder:text-body/60 pr-10 ${className}`}
           {...props}
         />
@@ -25,9 +39,13 @@ export default function Input({ className = '', type = 'text', ...props }) {
 
   return (
     <input
+      ref={ref}
       type={type}
+      id={id}
       className={`w-full px-4 py-2.5 rounded-lg border border-body/20 bg-background focus:bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-heading placeholder:text-body/60 ${className}`}
       {...props}
     />
   );
-}
+});
+
+export default Input;

@@ -1,12 +1,19 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { FcGoogle } from 'react-icons/fc';
+import { PiSpinnerGap } from 'react-icons/pi';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import { registerFields } from '../constants/fields/register';
-import { useRegister } from '../hooks/mutations/useAuthMutate';
+import { userRegistration } from '../features/actions/authActions';
 
 const Register = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.auth);
+
+  // INITIALIZATION FOR FORM STATE, VALIDATION, AND SUBMISSION HANDLING
   const {
     register,
     handleSubmit,
@@ -14,34 +21,43 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const { mutate, isPending } = useRegister();
-
-  const onSubmit = (data) => {
+  // HANDLE USER REGISTRATION FORM SUBMISSION
+  const onSubmit = async (data) => {
     const { confirmPassword, ...payload } = data;
-    mutate(payload, {
-      onSuccess: (res) => {
-        console.log('Registration successful!', res);
-        // Optionally redirect or show success message here
-      },
-      onError: (err) => {
-        console.error('Registration failed:', err);
-      },
-    });
+    try {
+      const res = await dispatch(userRegistration(payload));
+      if (res?.token) {
+        localStorage.setItem('token', res.token);
+        if (res?.user) {
+          localStorage.setItem('user', JSON.stringify(res.user));
+        }
+      }
+      navigate('/profile');
+    } catch (error) {
+      console.error('Error in registration', error)
+    }
   };
 
   const password = watch('password');
 
   return (
-    <main className="min-h-screen bg-background flex items-center justify-center p-4">
+    <main className="min-h-screen bg-background flex items-center justify-center p-6">
       <section className="bg-surface w-full max-w-[400px] rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-body/10 p-8">
 
-        <header className="text-center mb-6">
-
+        <header className="text-center mb-4">
           <h1 className="text-2xl font-heading font-bold text-heading mb-1.5">Create Account</h1>
-          <p className="text-body text-sm">Join us to manage your health seamlessly</p>
         </header>
 
+        {error && (
+          <div className="p-3 mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg">
+            {error}
+          </div>
+        )}
+
+        {/* REGISTRATION FORM */}
         <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-y-4 gap-x-3">
+
+          {/* LOAD INPUT FIELDS  - from register.js*/}
           {registerFields.map((field) => (
             <div key={field.name} className={`space-y-1.5 ${field.halfWidth ? 'col-span-1' : 'col-span-2'}`}>
               <label className="text-sm font-medium text-heading">{field.label}</label>
@@ -52,10 +68,10 @@ const Register = () => {
                   required: field.required,
                   validate: field.name === 'confirmPassword'
                     ? (value) => {
-                        if (value.trim() === '') return field.invalidMessage;
-                        if (value !== password) return 'Passwords do not match';
-                        return true;
-                      }
+                      if (value.trim() === '') return field.invalidMessage;
+                      if (value !== password) return 'Passwords do not match';
+                      return true;
+                    }
                     : (value) => value.trim() !== '' || field.invalidMessage,
                 })}
               />
@@ -66,13 +82,20 @@ const Register = () => {
           ))}
 
           <div className="col-span-2">
-            <Button type="submit" disabled={isPending} className="w-full py-2.5 mt-1 disabled:opacity-70">
-              {isPending ? 'Creating Account...' : 'Create Account'}
+            <Button type="submit" disabled={loading} className="w-full py-2.5 mt-1 disabled:opacity-70 gap-2">
+              {loading ? (
+                <>
+                  <PiSpinnerGap className="animate-spin text-lg" />
+                  <span>Creating Account</span>
+                </>
+              ) : (
+                'Create Account'
+              )}
             </Button>
           </div>
         </form>
 
-        <div className="relative my-6">
+        <div className="relative my-4">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-body/10"></div>
           </div>
@@ -81,12 +104,12 @@ const Register = () => {
           </div>
         </div>
 
-        <Button type="button" variant="outline" className="w-full py-2.5 gap-3">
+        <Button type="button" variant="outline" className="w-full py-1.5 gap-3">
           <FcGoogle className="w-5 h-5" />
           Sign up with Google
         </Button>
 
-        <p className="mt-8 text-center text-sm text-body">
+        <p className="mt-4 text-center text-sm text-body">
           Already have an account?{' '}
           <Link to="/login" className="font-medium text-primary hover:text-primary/80 transition-colors">
             Sign in
