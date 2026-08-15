@@ -1,10 +1,11 @@
 import React from 'react'
+import PageHeader from '../components/ui/PageHeader'
 
 const Profile = () => {
     return (
-        <main>
-            <h1>Profile</h1>
-        </main>
+        <section>
+            <PageHeader title={"Profile Account"} description={"Manage and update your accounts details here."} />
+        </section>
     )
 }
 

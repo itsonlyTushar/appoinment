@@ -8,23 +8,31 @@ import Profile from '../pages/Profile';
 import Services from '../pages/Services';
 import Appointment from '../pages/Appointment';
 import Booking from '../pages/Booking';
+import ProtectedRoute from './ProtectedRoute';
+import PublicRoute from './PublicRoute';
 
 export default function AppRoutes() {
   return (
     <Routes>
+      {/* PUBLIC PAGES LAYOUT */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Landing />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path='/services' element={<Services />} />
+        <Route path="/services" element={<Services />} />
+        <Route element={<PublicRoute />}>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
       </Route>
 
-      {/* Auth / Private Routes */}
-      <Route element={<PrivateLayout />}>
-        <Route path="/profile" element={<Profile />} />
-        <Route path='/book' element={<Booking />} />
-        <Route path='/appointment' element={<Appointment />} />
+      {/* PRIVATE ROUTES PROTECTED BY PROTECTED ROUTE */}
+      <Route element={<ProtectedRoute />}>
+        <Route element={<PrivateLayout />}>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/book" element={<Booking />} />
+          <Route path="/appointment" element={<Appointment />} />
+        </Route>
       </Route>
     </Routes>
   );
 }
+

@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import { OAuth2Client } from "google-auth-library";
 import { hashPassword, comparePassword } from "../utils/hash.js";
+import { authenticate } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -133,12 +134,12 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
+    // IF USER SELECTED REMEBMER PASSWORD WILL LAST 30 DAYS WITHOUT LOGIN 
     const expiresIn = rememberMe ? "30d" : "1d";
 
     const token = jwt.sign(
       {
         userId: user._id,
-        role: user.role,
         email: user.email,
       },
       process.env.JWT_SECRET,
@@ -152,8 +153,24 @@ router.post('/login', async (req, res) => {
       user: {
         id: user._id,
         email: user.email,
-        role: user.role,
         name: user.name,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// GET CURRENT AUTHENTICATED USER PROFILE
+router.get("/me", authenticate, async (req, res) => {
+  try {
+    return res.status(200).json({
+      user: {
+        id: req.user._id,
+        name: req.user.name,
+        email: req.user.email,
+        contactNumber: req.user.contactNumber,
       },
     });
   } catch (error) {
