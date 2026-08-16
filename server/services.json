@@ -1,0 +1,560 @@
+[
+  {
+    "id": "service_emergency_care",
+    "type": "Emergency & Critical Care",
+    "name": "Emergency / Casualty Services",
+    "shortDescription": "Immediate medical care for patients with urgent or life-threatening conditions.",
+    "tags": [
+      "emergency",
+      "24/7",
+      "urgent-care"
+    ],
+    "department": "Emergency Medicine",
+    "appointmentRequired": false,
+    "available24x7": true,
+    "status": "active"
+  },
+  {
+    "id": "service_icu",
+    "type": "Emergency & Critical Care",
+    "name": "Intensive Care Unit (ICU)",
+    "shortDescription": "Specialized care and continuous monitoring for critically ill patients.",
+    "tags": [
+      "icu",
+      "critical-care",
+      "intensive-care"
+    ],
+    "department": "Critical Care",
+    "appointmentRequired": false,
+    "available24x7": true,
+    "status": "active"
+  },
+  {
+    "id": "service_nicu",
+    "type": "Emergency & Critical Care",
+    "name": "Neonatal Intensive Care Unit (NICU)",
+    "shortDescription": "Specialized intensive care for premature and critically ill newborns.",
+    "tags": [
+      "nicu",
+      "newborn",
+      "neonatal"
+    ],
+    "department": "Neonatology",
+    "appointmentRequired": false,
+    "available24x7": true,
+    "status": "active"
+  },
+  {
+    "id": "service_picu",
+    "type": "Emergency & Critical Care",
+    "name": "Pediatric Intensive Care Unit (PICU)",
+    "shortDescription": "Intensive medical care for critically ill children.",
+    "tags": [
+      "picu",
+      "children",
+      "critical-care"
+    ],
+    "department": "Pediatrics",
+    "appointmentRequired": false,
+    "available24x7": true,
+    "status": "active"
+  },
+  {
+    "id": "service_ambulance",
+    "type": "Emergency & Critical Care",
+    "name": "Ambulance Services",
+    "shortDescription": "Emergency transportation with medical support for patients requiring hospital care.",
+    "tags": [
+      "ambulance",
+      "emergency",
+      "transport"
+    ],
+    "department": "Emergency Medicine",
+    "appointmentRequired": false,
+    "available24x7": true,
+    "status": "active"
+  },
+  {
+    "id": "service_trauma_care",
+    "type": "Emergency & Critical Care",
+    "name": "Trauma Care",
+    "shortDescription": "Emergency treatment for patients suffering from serious injuries and accidents.",
+    "tags": [
+      "trauma",
+      "accident",
+      "emergency"
+    ],
+    "department": "Trauma & Emergency",
+    "appointmentRequired": false,
+    "available24x7": true,
+    "status": "active"
+  },
+  {
+    "id": "service_general_ward",
+    "type": "Inpatient / Hospitalization",
+    "name": "General Ward",
+    "shortDescription": "Shared inpatient accommodation with medical and nursing care.",
+    "tags": [
+      "ward",
+      "inpatient",
+      "hospitalization"
+    ],
+    "department": "Inpatient Services",
+    "appointmentRequired": false,
+    "available24x7": true,
+    "status": "active"
+  },
+  {
+    "id": "service_private_room",
+    "type": "Inpatient / Hospitalization",
+    "name": "Private Room",
+    "shortDescription": "Private inpatient accommodation with dedicated patient space and hospital care.",
+    "tags": [
+      "private-room",
+      "inpatient",
+      "hospitalization"
+    ],
+    "department": "Inpatient Services",
+    "appointmentRequired": false,
+    "available24x7": true,
+    "status": "active"
+  },
+  {
+    "id": "service_daycare_admission",
+    "type": "Inpatient / Hospitalization",
+    "name": "Day-care Admission",
+    "shortDescription": "Hospital admission for procedures or treatments that do not require an overnight stay.",
+    "tags": [
+      "day-care",
+      "admission",
+      "procedure"
+    ],
+    "department": "Day Care",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_nursing_care",
+    "type": "Inpatient / Hospitalization",
+    "name": "Nursing Care",
+    "shortDescription": "Professional nursing support for patients during hospitalization and recovery.",
+    "tags": [
+      "nursing",
+      "patient-care",
+      "inpatient"
+    ],
+    "department": "Nursing Services",
+    "appointmentRequired": false,
+    "available24x7": true,
+    "status": "active"
+  },
+  {
+    "id": "service_cardiology",
+    "type": "Medical Specialty",
+    "name": "Cardiology",
+    "shortDescription": "Diagnosis and treatment of heart and cardiovascular conditions.",
+    "tags": [
+      "cardiology",
+      "heart",
+      "cardiovascular"
+    ],
+    "department": "Cardiology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_neurology",
+    "type": "Medical Specialty",
+    "name": "Neurology",
+    "shortDescription": "Diagnosis and treatment of conditions affecting the brain, nerves and nervous system.",
+    "tags": [
+      "neurology",
+      "brain",
+      "nervous-system"
+    ],
+    "department": "Neurology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_orthopedics",
+    "type": "Medical Specialty",
+    "name": "Orthopedics",
+    "shortDescription": "Medical and surgical treatment of bones, joints, muscles and related conditions.",
+    "tags": [
+      "orthopedics",
+      "bones",
+      "joints"
+    ],
+    "department": "Orthopedics",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_gastroenterology",
+    "type": "Medical Specialty",
+    "name": "Gastroenterology",
+    "shortDescription": "Diagnosis and treatment of disorders affecting the digestive system.",
+    "tags": [
+      "gastroenterology",
+      "digestive-system",
+      "stomach"
+    ],
+    "department": "Gastroenterology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_dermatology",
+    "type": "Medical Specialty",
+    "name": "Dermatology",
+    "shortDescription": "Diagnosis and treatment of skin, hair and nail conditions.",
+    "tags": [
+      "dermatology",
+      "skin",
+      "hair"
+    ],
+    "department": "Dermatology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_pulmonology",
+    "type": "Medical Specialty",
+    "name": "Pulmonology",
+    "shortDescription": "Diagnosis and treatment of diseases affecting the lungs and respiratory system.",
+    "tags": [
+      "pulmonology",
+      "lungs",
+      "respiratory"
+    ],
+    "department": "Pulmonology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_nephrology",
+    "type": "Medical Specialty",
+    "name": "Nephrology",
+    "shortDescription": "Diagnosis and treatment of kidney diseases and related conditions.",
+    "tags": [
+      "nephrology",
+      "kidney",
+      "renal"
+    ],
+    "department": "Nephrology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_oncology",
+    "type": "Medical Specialty",
+    "name": "Oncology",
+    "shortDescription": "Diagnosis, treatment and management of cancer and related conditions.",
+    "tags": [
+      "oncology",
+      "cancer",
+      "tumor"
+    ],
+    "department": "Oncology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_endocrinology",
+    "type": "Medical Specialty",
+    "name": "Endocrinology",
+    "shortDescription": "Diagnosis and treatment of hormonal and endocrine system disorders.",
+    "tags": [
+      "endocrinology",
+      "hormones",
+      "diabetes"
+    ],
+    "department": "Endocrinology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_psychiatry",
+    "type": "Medical Specialty",
+    "name": "Psychiatry",
+    "shortDescription": "Medical evaluation and treatment for mental, emotional and behavioral conditions.",
+    "tags": [
+      "psychiatry",
+      "mental-health",
+      "behavioral-health"
+    ],
+    "department": "Psychiatry",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_pediatrics",
+    "type": "Medical Specialty",
+    "name": "Pediatrics",
+    "shortDescription": "Medical care for infants, children and adolescents.",
+    "tags": [
+      "pediatrics",
+      "children",
+      "child-care"
+    ],
+    "department": "Pediatrics",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_gynecology",
+    "type": "Medical Specialty",
+    "name": "Gynecology & Obstetrics",
+    "shortDescription": "Women's healthcare including reproductive health, pregnancy and childbirth.",
+    "tags": [
+      "gynecology",
+      "obstetrics",
+      "women-health",
+      "pregnancy"
+    ],
+    "department": "Gynecology & Obstetrics",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_ent",
+    "type": "Medical Specialty",
+    "name": "ENT",
+    "shortDescription": "Diagnosis and treatment of conditions affecting the ear, nose and throat.",
+    "tags": [
+      "ent",
+      "ear",
+      "nose",
+      "throat"
+    ],
+    "department": "ENT",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_ophthalmology",
+    "type": "Medical Specialty",
+    "name": "Ophthalmology",
+    "shortDescription": "Medical and surgical care for eye diseases and vision problems.",
+    "tags": [
+      "ophthalmology",
+      "eyes",
+      "vision"
+    ],
+    "department": "Ophthalmology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_urology",
+    "type": "Medical Specialty",
+    "name": "Urology",
+    "shortDescription": "Diagnosis and treatment of conditions affecting the urinary system and male reproductive system.",
+    "tags": [
+      "urology",
+      "urinary-system",
+      "kidney"
+    ],
+    "department": "Urology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_blood_tests",
+    "type": "Diagnostics & Laboratory",
+    "name": "Blood Tests",
+    "shortDescription": "Laboratory testing of blood samples for diagnosis, screening and health monitoring.",
+    "tags": [
+      "blood-test",
+      "laboratory",
+      "diagnostics"
+    ],
+    "department": "Laboratory",
+    "appointmentRequired": false,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_pathology",
+    "type": "Diagnostics & Laboratory",
+    "name": "Pathology",
+    "shortDescription": "Laboratory examination of tissue, blood and other samples to support diagnosis.",
+    "tags": [
+      "pathology",
+      "laboratory",
+      "diagnostics"
+    ],
+    "department": "Pathology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_xray",
+    "type": "Diagnostics & Laboratory",
+    "name": "X-Ray",
+    "shortDescription": "Imaging service used to examine bones, lungs and other internal structures.",
+    "tags": [
+      "x-ray",
+      "imaging",
+      "diagnostics"
+    ],
+    "department": "Radiology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_ct_scan",
+    "type": "Diagnostics & Laboratory",
+    "name": "CT Scan",
+    "shortDescription": "Advanced imaging that produces detailed cross-sectional images of the body.",
+    "tags": [
+      "ct-scan",
+      "imaging",
+      "radiology"
+    ],
+    "department": "Radiology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_mri",
+    "type": "Diagnostics & Laboratory",
+    "name": "MRI",
+    "shortDescription": "Magnetic resonance imaging used to create detailed images of organs and soft tissues.",
+    "tags": [
+      "mri",
+      "imaging",
+      "radiology"
+    ],
+    "department": "Radiology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_ultrasound",
+    "type": "Diagnostics & Laboratory",
+    "name": "Ultrasound",
+    "shortDescription": "Non-invasive imaging using sound waves to examine internal organs and tissues.",
+    "tags": [
+      "ultrasound",
+      "imaging",
+      "diagnostics"
+    ],
+    "department": "Radiology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_ecg",
+    "type": "Diagnostics & Laboratory",
+    "name": "ECG",
+    "shortDescription": "Test that records the electrical activity and rhythm of the heart.",
+    "tags": [
+      "ecg",
+      "heart",
+      "cardiology"
+    ],
+    "department": "Cardiology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_echocardiography",
+    "type": "Diagnostics & Laboratory",
+    "name": "Echocardiography",
+    "shortDescription": "Ultrasound-based examination used to assess the structure and function of the heart.",
+    "tags": [
+      "echo",
+      "heart",
+      "cardiology"
+    ],
+    "department": "Cardiology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_endoscopy",
+    "type": "Diagnostics & Laboratory",
+    "name": "Endoscopy",
+    "shortDescription": "Procedure using a specialized camera to examine internal parts of the digestive system.",
+    "tags": [
+      "endoscopy",
+      "digestive-system",
+      "diagnostics"
+    ],
+    "department": "Gastroenterology",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_general_surgery",
+    "type": "Surgery & Procedures",
+    "name": "General Surgery",
+    "shortDescription": "Surgical treatment for a wide range of common medical conditions.",
+    "tags": [
+      "surgery",
+      "general-surgery",
+      "operation"
+    ],
+    "department": "General Surgery",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_laparoscopic_surgery",
+    "type": "Surgery & Procedures",
+    "name": "Laparoscopic Surgery",
+    "shortDescription": "Minimally invasive surgery performed through small incisions using specialized instruments.",
+    "tags": [
+      "laparoscopy",
+      "minimally-invasive",
+      "surgery"
+    ],
+    "department": "General Surgery",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  },
+  {
+    "id": "service_orthopedic_surgery",
+    "type": "Surgery & Procedures",
+    "name": "Orthopedic Surgery",
+    "shortDescription": "Surgical treatment for conditions affecting bones, joints, muscles and ligaments.",
+    "tags": [
+      "orthopedic",
+      "surgery",
+      "bones",
+      "joints"
+    ],
+    "department": "Orthopedics",
+    "appointmentRequired": true,
+    "available24x7": false,
+    "status": "active"
+  }
+]

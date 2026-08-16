@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import authRoutes from "./src/routes/auth.routes.js";
 import bookingRoutes from "./src/routes/booking.routes.js";
+import serviceRoutes from "./src/routes/service.routes.js";
 
 // BACKEND INITIALIZATION
 const app = express();
@@ -47,5 +48,6 @@ mongoose
 // USING THE ROUTES THATS CREATED ROUTES FOLDERS
 app.use("/api/auth", authRoutes);
 app.use("/api/booking", bookingRoutes);
+app.use("/api/services", serviceRoutes);
 
 export default app;

@@ -10,7 +10,7 @@ export const bookingUser = async (payload) => {
 };
 
 // WRAPPING BOOKING API - GET
-export const getUserBooking = async (payload) => {
+export const getUserBooking = async () => {
   const { data } = await api.get("");
 
   return data;

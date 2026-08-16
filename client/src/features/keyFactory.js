@@ -15,3 +15,8 @@ export const LOGOUT = "LOGOUT";
 export const NEW_BOOKING_REQ = "NEW_BOOKING_REQ";
 export const NEW_BOOKING_SUC = "NEW_BOOKING_SUC";
 export const NEW_BOOKING_FAIL = "NEW_BOOKING_FAIL";
+
+// SERVICES KEYS
+export const SERVICES_REQ = "SERVICES_REQ";
+export const SERVICES_SUC = "SERVICES_SUC";
+export const SERVICES_FAIL = "SERVICES_FAIL";

@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { LuLogOut } from "react-icons/lu";
+import { toast } from 'react-toastify';
 import { navItems } from '../../constants/navItems';
 import { userLogout } from '../../features/actions/authActions';
 import Modal from './Modal';
 import Button from './Button';
+import logo from '../../assets/logo/logo.png';
+import collapsedLogo from '../../assets/logo/collapsed.png';
 
 const Sidebar = ({ collapsed }) => {
     const dispatch = useDispatch();
-    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+    const navigate = useNavigate();
+    const [isModalOpen, setisModalOpen] = useState(false);
 
+    // CONFIRM LOGOUT AND SHOW TOAST AFTERWARDS 
     const handleConfirmLogout = () => {
-        setIsLogoutModalOpen(false);
+        setisModalOpen(false);
         dispatch(userLogout());
+        toast.success("Logged out successfully!");
+        navigate('/login');
     };
 
     return (
@@ -21,21 +28,16 @@ const Sidebar = ({ collapsed }) => {
             className={`fixed left-0 top-0 z-50 flex h-screen flex-col border-r border-body/10 bg-surface transition-[width] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] ${collapsed ? 'w-20' : 'w-64'
                 }`}
         >
-            <div className={`flex h-16 items-center border-b border-body/10 px-4 ${collapsed ? 'justify-center' : 'justify-between'}`}>
+            <div className={`flex h-16 items-center border-b border-body/10 px-4 ${collapsed ? 'justify-center' : 'justify-start'}`}>
                 {collapsed ? (
-                    <div className="flex items-center gap-2 pl-2">
-                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-heading font-bold text-base">
-                            M
-                        </div>
-                    </div>
-                ) :
-                    <div className="flex items-center gap-2 pl-2">
-                        <h1 className='text-lg font-heading font-bold text-heading tracking-tight'>
-                            Medicare
-                        </h1>
-                    </div>
-                }
-
+                    <Link to="/" className="flex items-center justify-center">
+                        <img src={collapsedLogo} alt="HealthEase" className="h-8 w-auto object-contain" />
+                    </Link>
+                ) : (
+                    <Link to="/" className="flex items-center pl-2">
+                        <img src={logo} alt="HealthEase" className="h-8 w-auto object-contain" />
+                    </Link>
+                )}
             </div>
 
             {/* RENDER WITH NAVIGATION LINKS */}
@@ -69,7 +71,7 @@ const Sidebar = ({ collapsed }) => {
             <div className='p-3'>
                 <button
                     type="button"
-                    onClick={() => setIsLogoutModalOpen(true)}
+                    onClick={() => setisModalOpen(true)}
                     title={collapsed ? "Logout" : undefined}
                     aria-label="Logout"
                     className={`flex w-full items-center gap-3 rounded-xl px-2.5 py-1.5 text-sm font-medium min-h-[44px] text-danger/80 hover:text-danger hover:bg-danger/10 transition-colors duration-150 active:scale-[0.98] cursor-pointer ${collapsed ? 'justify-center px-0' : ''
@@ -82,8 +84,8 @@ const Sidebar = ({ collapsed }) => {
                 </button>
 
                 <Modal
-                    isOpen={isLogoutModalOpen}
-                    onClose={() => setIsLogoutModalOpen(false)}
+                    isOpen={isModalOpen}
+                    onClose={() => setisModalOpen(false)}
                     ModalTitle="Confirm Logout"
                     actions={
                         <Button
