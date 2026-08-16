@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { FcGoogle } from 'react-icons/fc';
 import { PiSpinnerGap } from 'react-icons/pi';
+import { toast } from 'react-toastify';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import { userLogin } from '../features/actions/authActions';
@@ -43,9 +44,13 @@ const Login = () => {
           localStorage.setItem('user', JSON.stringify(res.user));
         }
       }
+      toast.success(res?.message || 'Logged in successfully!');
       navigate('/profile');
     } catch (err) {
       console.error('Error in login', err);
+      const errorMessage =
+        err?.response?.data?.message || err?.message || 'Login failed. Please check your credentials.';
+      toast.error(errorMessage);
     }
   };
 

@@ -8,7 +8,7 @@ import {
   LOGOUT,
 } from "../keyFactory";
 
-// GET INITIAL USER FROM LOCALSTORAGE IF EXISTS
+// GET INITIAL USER FROM LOCAL-STORAGE IF EXISTS
 const savedUser = (() => {
   try {
     const raw = localStorage.getItem("user");

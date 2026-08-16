@@ -1,38 +1,41 @@
 import express from "express";
 import mongoose from "mongoose";
-import authRoutes from './src/routes/auth.routes.js';
+import authRoutes from "./src/routes/auth.routes.js";
+import bookingRoutes from "./src/routes/booking.routes.js";
 
+// BACKEND INITIALIZATION
 const app = express();
 
 // CORS POLICY TO PREVENT API ERRORS
 app.use((req, res, next) => {
-    const origin = req.headers.origin;
-    
-    const clientURL = process.env.CLIENT_URL ? process.env.CLIENT_URL.replace(/\/$/, "") : "";
+  const origin = req.headers.origin;
 
-    const allowOrigins = [
-      "http://localhost:5173",
-      clientURL
-    ].filter(Boolean);
+  const clientURL = process.env.CLIENT_URL
+    ? process.env.CLIENT_URL.replace(/\/$/, "")
+    : "";
 
-    if (origin && allowOrigins.includes(origin)) {
-      res.setHeader("Access-Control-Allow-Origin", origin);
-    } else {
-      res.setHeader("Access-Control-Allow-Origin", allowOrigins[0] || "*");
-    }
+  const allowOrigins = ["http://localhost:5173", clientURL].filter(Boolean);
 
-    // ALLOW METHODS TYPE 
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
+  if (origin && allowOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  } else {
+    res.setHeader("Access-Control-Allow-Origin", allowOrigins[0] || "*");
+  }
 
-    if (req.method === "OPTIONS") {
-      return res.status(200).end();
-    }
+  // ALLOW METHODS TYPE
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 
-    next();
-}) 
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
 
+  next();
+});
 
 app.use(express.json());
 
@@ -41,8 +44,8 @@ mongoose
   .then(() => console.log("MongoDB connected!"))
   .catch((err) => console.log("Error in the MongoDB connection", err));
 
-
-// USING THE ROUTES THAT CREATED 
-app.use('/api/auth', authRoutes)
+// USING THE ROUTES THATS CREATED ROUTES FOLDERS
+app.use("/api/auth", authRoutes);
+app.use("/api/booking", bookingRoutes);
 
 export default app;

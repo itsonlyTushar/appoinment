@@ -37,12 +37,24 @@ const Input = forwardRef(function Input({ className = '', type = 'text', id, ...
     );
   }
 
+  if (type === 'textarea') {
+    return (
+      <textarea
+        ref={ref}
+        id={id}
+        rows={4}
+        className={`w-full px-4 py-2.5 rounded-lg border border-body/20 bg-background focus:bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-heading placeholder:text-body/60 resize-none ${className}`}
+        {...props}
+      />
+    );
+  }
+
   return (
     <input
       ref={ref}
       type={type}
       id={id}
-      className={`w-full px-4 py-2.5 rounded-lg border border-body/20 bg-background focus:bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-heading placeholder:text-body/60 ${className}`}
+      className={`w-full px-4 py-2.5 rounded-lg border border-body/20 bg-background focus:bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 text-heading placeholder:text-body/60 [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-70 hover:[&::-webkit-calendar-picker-indicator]:opacity-100 ${className}`}
       {...props}
     />
   );

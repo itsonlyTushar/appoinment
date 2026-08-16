@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { FcGoogle } from 'react-icons/fc';
 import { PiSpinnerGap } from 'react-icons/pi';
+import { toast } from 'react-toastify';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import { registerFields } from '../constants/fields/register';
@@ -32,9 +33,13 @@ const Register = () => {
           localStorage.setItem('user', JSON.stringify(res.user));
         }
       }
+      toast.success(res?.message || 'Account created successfully!');
       navigate('/profile');
     } catch (error) {
-      console.error('Error in registration', error)
+      console.error('Error in registration', error);
+      const errorMessage =
+        error?.response?.data?.message || error?.message || 'Registration failed. Please try again.';
+      toast.error(errorMessage);
     }
   };
 

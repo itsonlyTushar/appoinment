@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap');
 
-/* Reusable class for the styling in the application  */
+/* REUSABLE CLASS FOR THE STYLING IN THE APPLICATION */
 @theme {
   --color-primary: #4F6BFE;
   --color-heading: #16242E;
@@ -41,7 +41,7 @@ p {
   color: var(--color-body);
 }
 
-/* Remove default Vite styling constraints */
+/* REMOVE DEFAULT VITE STYLING CONSTRAINTS */
 #root {
   width: 100%;
   min-height: 100vh;

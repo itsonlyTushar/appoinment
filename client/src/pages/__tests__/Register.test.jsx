@@ -43,7 +43,7 @@ describe('Register Page Unit Tests', () => {
     renderWithProviders(<Register />);
 
     // Header
-    expect(screen.getByRole('heading', { name: /create account/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /patient registration/i })).toBeInTheDocument();
 
     // Labels
     expect(screen.getByText('Full Name')).toBeInTheDocument();

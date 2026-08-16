@@ -3,7 +3,7 @@ import { Outlet, Link } from 'react-router-dom';
 export default function PublicLayout() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      {/* Navbar */}
+      {/* NAVBAR */}
       <nav className="w-full bg-surface border-b border-body/10 py-3 px-6 md:px-12 flex items-center justify-between shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
         <Link to="/" className="text-xl font-heading font-bold text-primary">
           DocAppoint
@@ -18,7 +18,7 @@ export default function PublicLayout() {
         </div>
       </nav>
 
-      {/* Page Content */}
+      {/* PAGE CONTENT */}
       <main className="flex-grow">
         <Outlet />
       </main>

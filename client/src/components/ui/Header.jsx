@@ -9,7 +9,7 @@ export default function Header({ collapsed, setCollapsed }) {
         <header className="h-16 bg-surface border-b border-body/10 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-40">
             <button
                 onClick={() => setCollapsed(!collapsed)}
-                className='w-8 h-8 rounded-lg flex items-center justify-center text-body hover:text-heading hover:bg-background transition-colors active:scale-95 duration-150'
+                className='w-8 h-8 rounded-lg flex items-center justify-center text-body hover:text-heading hover:bg-background transition-colors'
                 title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
                 aria-label="Toggle Sidebar"
             >
