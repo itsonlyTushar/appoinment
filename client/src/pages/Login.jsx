@@ -76,6 +76,7 @@ const Login = () => {
             <Input
               type="email"
               placeholder="john.doe@example.com"
+              error={!!errors.email}
               {...register('email', {
                 required: 'Email is required',
                 validate: (value) => value.trim() !== '' || 'Please enter a valid email',
@@ -91,6 +92,7 @@ const Login = () => {
             <Input
               type="password"
               placeholder="••••••••"
+              error={!!errors.password}
               {...register('password', {
                 required: 'Password is required',
                 validate: (value) => value.trim() !== '' || 'Please enter a valid password',

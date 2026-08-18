@@ -1,4 +1,8 @@
-import { registerUser as registerUserApi, loginUser as loginUserApi } from "../../api/auth.api";
+import {
+  registerUser as registerUserApi,
+  loginUser as loginUserApi,
+  getUsersDetails as getUsersDetailsApi,
+} from "../../api/auth.api";
 import {
   REGISTER_FAILURE,
   REGISTER_REQUEST,
@@ -76,4 +80,34 @@ export const userLogout = () => (dispatch) => {
   dispatch({
     type: LOGOUT,
   });
+};
+
+// ACTION : GET USER DETAILS
+export const usersDetails = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: LOGIN_REQUEST,
+    });
+
+    try {
+      const response = await getUsersDetailsApi();
+
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: response,
+      });
+      return response;
+    } catch (error) {
+      const errorMessage =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+
+      dispatch({
+        type: LOGIN_FAILURE,
+        payload: errorMessage,
+      });
+      throw error;
+    }
+  };
 };

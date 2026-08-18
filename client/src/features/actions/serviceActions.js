@@ -6,31 +6,31 @@ import {
 } from "../keyFactory";
 
 // ACTION : GET ALL SERVICES
-export const getAllServices = () => {
+export const getAllServices = (params = {}) => {
   return async (dispatch) => {
     dispatch({
       type: SERVICES_REQ,
     });
 
     try {
-      const response = await getServicesApi();
+      const response = await getServicesApi(params);
 
       dispatch({
         type: SERVICES_SUC,
-        payload: response.services || response,
+        payload: response,
       });
       return response;
-    } catch (error) {
+    } catch (err) {
       const errorMessage =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message;
 
       dispatch({
         type: SERVICES_FAIL,
         payload: errorMessage,
       });
-      throw error;
+      throw err;
     }
   };
 };

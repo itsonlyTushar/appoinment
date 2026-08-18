@@ -1,9 +1,12 @@
+import React from 'react';
+import Hero from '../components/Hero';
+
 const Landing = () => {
   return (
-    <main>
-      <h1>Landing Page</h1>
-    </main>
+    <div className="w-full">
+      <Hero />
+    </div>
   );
-}
+};
 
 export default Landing;

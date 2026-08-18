@@ -17,7 +17,7 @@ const ChooseFile = forwardRef(function ChooseFile(
             {label && (
                 <label
                     htmlFor={id}
-                    className="text-sm font-medium text-heading leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    className="text-sm font-medium text-heading leading-none"
                 >
                     {label}
                 </label>
@@ -29,10 +29,10 @@ const ChooseFile = forwardRef(function ChooseFile(
                 accept={accept}
                 disabled={disabled}
                 className={`
-                    flex w-full cursor-pointer rounded-lg border bg-background text-sm text-body transition-all duration-200
-                    file:mr-4 file:cursor-pointer file:border-0 file:bg-primary file:px-4 file:py-2.5 file:text-sm file:font-medium file:text-surface hover:file:bg-primary/90 file:transition-colors
+                    flex h-11 w-full items-center cursor-pointer rounded-lg border bg-background text-sm text-body transition-all duration-200
+                    file:mr-4 file:h-full file:cursor-pointer file:border-0 file:bg-primary file:px-4 file:text-sm file:font-medium file:text-surface hover:file:bg-primary/90 file:transition-colors
                     focus:bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none
-                    disabled:cursor-not-allowed disabled:opacity-60
+                    disabled:opacity-60 disabled:cursor-not-allowed disabled:bg-body/5 file:disabled:opacity-60 file:disabled:cursor-not-allowed file:disabled:bg-body/30
                     ${error ? "border-red-500" : "border-body/20"}
                 `}
                 {...props}

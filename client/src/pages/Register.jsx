@@ -70,6 +70,7 @@ const Register = () => {
               <Input
                 type={field.type}
                 placeholder={field.placeholder}
+                error={!!errors[field.name]}
                 {...register(field.name, {
                   required: field.required,
                   validate: field.name === 'confirmPassword'

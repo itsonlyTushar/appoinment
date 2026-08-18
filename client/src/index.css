@@ -12,33 +12,35 @@
   --font-heading: 'Sora', system-ui, sans-serif;
 }
 
-:root {
-  font-family: var(--font-sans);
-  color-scheme: light;
-  background-color: var(--color-background);
-  color: var(--color-body);
-  
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@layer base {
+  :root {
+    font-family: var(--font-sans);
+    color-scheme: light;
+    background-color: var(--color-background);
+    color: var(--color-body);
+    
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-body {
-  margin: 0;
-  background-color: var(--color-background);
-  color: var(--color-body);
-}
+  body {
+    margin: 0;
+    background-color: var(--color-background);
+    color: var(--color-body);
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  color: var(--color-heading);
-  font-weight: 600;
-  margin-top: 0;
-}
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-heading);
+    font-weight: 600;
+    margin-top: 0;
+  }
 
-p {
-  color: var(--color-body);
+  p {
+    color: var(--color-body);
+  }
 }
 
 /* REMOVE DEFAULT VITE STYLING CONSTRAINTS */
@@ -152,4 +154,16 @@ p {
   transform: translateY(66%) scale(0.65);
   opacity: 0.8;
  }
+}
+/* REACT DATEPICKER STYLING */
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+  width: 100%;
+  display: block;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: var(--color-primary, #4F6BFE) !important;
+  color: #FFFFFF !important;
 }

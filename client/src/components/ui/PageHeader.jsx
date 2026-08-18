@@ -1,19 +1,14 @@
+import React from 'react';
 
-
-const PageHeader = ({ title, description }) => {
+const PageHeader = ({ title, description, className = '' }) => {
     return (
-        <div
-            className=
-            "flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between"
-        >
-            <div className="space-y-1">
-                <h1 className="text-4xl font-bold ">{title}</h1>
-                {description && (
-                    <p className="text-sm text-muted-foreground">{description}</p>
-                )}
-            </div>
+        <div className={`space-y-1 ${className}`}>
+            <h1 className="text-3xl sm:text-4xl font-bold font-heading text-heading">{title}</h1>
+            {description && (
+                <p className="text-sm text-body">{description}</p>
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default PageHeader
+export default PageHeader;

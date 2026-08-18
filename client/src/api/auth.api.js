@@ -21,3 +21,10 @@ export const loginUser = async (payload) => {
 
   return data;
 };
+
+// GET CURRENT USER DETAILS - GET
+export const getUsersDetails = async () => {
+  const { data } = await api.get("/api/auth/me");
+
+  return data;
+};

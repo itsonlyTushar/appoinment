@@ -12,9 +12,14 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGOUT = "LOGOUT";
 
 // BOOKING KEYS
-export const NEW_BOOKING_REQ = "NEW_BOOKING_REQ";
-export const NEW_BOOKING_SUC = "NEW_BOOKING_SUC";
-export const NEW_BOOKING_FAIL = "NEW_BOOKING_FAIL";
+export const BOOKING_REQ = "BOOKING_REQ";
+export const BOOKING_SUC = "BOOKING_SUC";
+export const BOOKING_FAIL = "BOOKING_FAIL";
+
+// BOOKING YEARS KEYS
+export const YEARS_REQ = "YEARS_REQ";
+export const YEARS_SUC = "YEARS_SUC";
+export const YEARS_FAIL = "YEARS_FAIL";
 
 // SERVICES KEYS
 export const SERVICES_REQ = "SERVICES_REQ";

@@ -20,12 +20,12 @@ const Sidebar = ({ collapsed }) => {
         setisModalOpen(false);
         dispatch(userLogout());
         toast.success("Logged out successfully!");
-        navigate('/login');
+        navigate('/');
     };
 
     return (
         <aside
-            className={`fixed left-0 top-0 z-50 flex h-screen flex-col border-r border-body/10 bg-surface transition-[width] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] ${collapsed ? 'w-20' : 'w-64'
+            className={`fixed left-0 top-0 z-50 flex h-screen flex-col border-r border-body/10 bg-surface transition-[width] duration-200 ${collapsed ? 'w-20' : 'w-64'
                 }`}
         >
             <div className={`flex h-16 items-center border-b border-body/10 px-4 ${collapsed ? 'justify-center' : 'justify-start'}`}>
@@ -67,22 +67,23 @@ const Sidebar = ({ collapsed }) => {
                 })}
             </nav>
 
-            {/* FOOTER LOG OUT OPTION */}
+            {/* FOOTER LOG OUT OPTION WITH MODAL CONFIRMATION */}
             <div className='p-3'>
                 <button
                     type="button"
                     onClick={() => setisModalOpen(true)}
                     title={collapsed ? "Logout" : undefined}
                     aria-label="Logout"
-                    className={`flex w-full items-center gap-3 rounded-xl px-2.5 py-1.5 text-sm font-medium min-h-[44px] text-danger/80 hover:text-danger hover:bg-danger/10 transition-colors duration-150 active:scale-[0.98] cursor-pointer ${collapsed ? 'justify-center px-0' : ''
+                    className={`flex w-full items-center gap-3 rounded-xl px-2.5 py-1.5 text-sm font-medium min-h-[44px] text-danger/80 hover:text-danger hover:bg-danger/10 transition-colors duration-150 cursor-pointer ${collapsed ? 'justify-center px-0' : ''
                         }`}
                 >
                     <LuLogOut size={20} className="shrink-0" />
                     {!collapsed && (
-                        <span className="truncate">Logout</span>
+                        <span>Logout</span>
                     )}
                 </button>
 
+                {/* MODAL WHEN CLICK LOGOUT  */}
                 <Modal
                     isOpen={isModalOpen}
                     onClose={() => setisModalOpen(false)}

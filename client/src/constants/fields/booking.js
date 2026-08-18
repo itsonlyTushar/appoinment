@@ -1,12 +1,31 @@
+// TIME SLOTS BETWEEN 10:00 AM AND 5:00 PM WITH 24HR VALUES
+export const timeSlots = [
+  { label: "10:00 AM", value: "10:00" },
+  { label: "10:30 AM", value: "10:30" },
+  { label: "11:00 AM", value: "11:00" },
+  { label: "11:30 AM", value: "11:30" },
+  { label: "12:00 PM", value: "12:00" },
+  { label: "12:30 PM", value: "12:30" },
+  { label: "01:00 PM", value: "13:00" },
+  { label: "01:30 PM", value: "13:30" },
+  { label: "02:00 PM", value: "14:00" },
+  { label: "02:30 PM", value: "14:30" },
+  { label: "03:00 PM", value: "15:00" },
+  { label: "03:30 PM", value: "15:30" },
+  { label: "04:00 PM", value: "16:00" },
+  { label: "04:30 PM", value: "16:30" },
+  { label: "05:00 PM", value: "17:00" },
+];
+
 // BOOKING PAGE FORM FIELDS
 export const bookingFields = [
   {
     name: "date",
-    label: "Date & Time",
-    type: "datetime-local",
-    placeholder: "DD-MM-YYYY --:--",
-    required: "Date and time are required",
-    invalidMessage: "Please select a valid date and time",
+    label: "Appointment Date",
+    type: "date",
+    placeholder: "Select date",
+    required: "Appointment date is required",
+    invalidMessage: "Please select a valid date",
   },
   {
     name: "department",
@@ -15,6 +34,14 @@ export const bookingFields = [
     placeholder: "Select department",
     required: "Department is required",
     invalidMessage: "Please select valid department",
+  },
+  {
+    name: "doctor",
+    label: "Doctor",
+    type: "select",
+    placeholder: "Select doctor",
+    required: "Doctor is required",
+    invalidMessage: "Please select a doctor",
   },
   {
     name: "comments",
@@ -27,9 +54,10 @@ export const bookingFields = [
     name: "reports",
     label: "Medical Reports",
     type: "file",
-    accept: "image/*",
+    accept: "image/*,application/pdf,.pdf",
     required: false,
-    invalidMessage: "Only image files (JPEG, PNG, WEBP, etc.) are allowed",
+    invalidMessage:
+      "Only image files JPEG, JPG, PNG and PDF documents under 2MB are allowed",
   },
 ];
 

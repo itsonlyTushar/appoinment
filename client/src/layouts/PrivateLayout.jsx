@@ -9,7 +9,7 @@ export default function PrivateLayout() {
     return (
         <div className="min-h-screen bg-background flex">
             {/* MAIN AREA SIDEBAR + TOP BAR */}
-            <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+            <Sidebar collapsed={collapsed} />
             <div
                 className={`flex-1 flex flex-col min-h-screen transition-[margin-left] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] ${collapsed ? "ml-20" : "ml-64"
                     }`}

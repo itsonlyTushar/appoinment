@@ -17,7 +17,7 @@ export default function Header({ collapsed, setCollapsed }) {
             </button>
             <Link
                 to="/services"
-                className="flex items-center text-surface bg-primary font-medium gap-2 min-h-[40px] px-4 rounded-xl transition-[transform,background-color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-primary/90 active:scale-[0.97] shadow-[0_1px_2px_rgba(79,107,254,0.2)]"
+                className="flex items-center text-surface bg-primary font-medium gap-2 min-h-[40px] px-4 rounded-xl hover:bg-primary/90"
                 aria-label="Services"
             >
                 <MdMedicalServices size={18} className="shrink-0" />

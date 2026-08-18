@@ -15,24 +15,20 @@ const Card = ({
   return (
     <div
       onClick={onClick}
-      className={`bg-surface rounded-2xl border border-body/10 p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-200 flex flex-col justify-between ${
-        onClick ? "cursor-pointer" : ""
-      } ${className}`}
+      className={`bg-surface rounded-2xl border border-body/10 p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-200 flex flex-col justify-between ${onClick ? "cursor-pointer" : ""
+        } ${className}`}
     >
       <div>
         {(badge || isAvailableAllDays) && (
           <div className="flex items-center justify-between gap-2 mb-3">
-            {badge ? (
+            {badge && (
               <span className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-primary/10 text-primary">
                 {badge}
               </span>
-            ) : (
-              <span />
             )}
 
             {isAvailableAllDays && (
-              <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200/60">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200/60 ml-auto">
                 24/7 Available
               </span>
             )}
@@ -58,7 +54,7 @@ const Card = ({
           </p>
         )}
 
-        {tags && tags.length > 0 && (
+        {tags.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-1.5">
             {tags.map((tag, index) => (
               <span

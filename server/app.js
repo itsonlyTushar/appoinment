@@ -45,7 +45,7 @@ mongoose
   .then(() => console.log("MongoDB connected!"))
   .catch((err) => console.log("Error in the MongoDB connection", err));
 
-// USING THE ROUTES THATS CREATED ROUTES FOLDERS
+// USING THE ROUTES THATS CREATED IN ROUTES FOLDERS
 app.use("/api/auth", authRoutes);
 app.use("/api/booking", bookingRoutes);
 app.use("/api/services", serviceRoutes);
