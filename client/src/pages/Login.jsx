@@ -1,13 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { FcGoogle } from 'react-icons/fc';
+import { GoogleLogin } from '@react-oauth/google';
 import { PiSpinnerGap } from 'react-icons/pi';
 import { toast } from 'react-toastify';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
+import { registerGoogle } from '../api/auth.api';
 import { userLogin } from '../features/actions/authActions';
-
+ 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -51,6 +52,18 @@ const Login = () => {
       const errorMessage =
         err?.response?.data?.message || err?.message || 'Login failed. Please check your credentials.';
       toast.error(errorMessage);
+    }
+  };
+
+  const handleGoogleSuccess = async ({ credential }) => {
+    try {
+      const res = await registerGoogle({ token: credential });
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('user', JSON.stringify(res.user));
+      toast.success(res.message || 'Logged in with Google!');
+      navigate('/profile');
+    } catch (err) {
+      toast.error(err?.response?.data?.message || 'Google login failed.');
     }
   };
 
@@ -136,10 +149,14 @@ const Login = () => {
           </div>
         </div>
 
-        <Button type="button" variant="outline" className="w-full py-2.5 gap-3">
-          <FcGoogle className="w-5 h-5" />
-          Sign in with Google
-        </Button>
+        <div className="flex justify-center">
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => toast.error('Google login failed.')}
+            text="signin_with"
+            width="320"
+          />
+        </div>
 
         <p className="mt-8 text-center text-sm text-body">
           Don't have an account?{' '}

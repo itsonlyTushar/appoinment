@@ -2,6 +2,7 @@ import {
   registerUser as registerUserApi,
   loginUser as loginUserApi,
   getUsersDetails as getUsersDetailsApi,
+  updateUserProfile as updateUserProfileApi,
 } from "../../api/auth.api";
 import {
   REGISTER_FAILURE,
@@ -10,6 +11,9 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  PROFILE_REQUEST,
+  PROFILE_SUCCESS,
+  PROFILE_FAILURE,
   LOGOUT,
 } from "../keyFactory";
 
@@ -86,14 +90,14 @@ export const userLogout = () => (dispatch) => {
 export const usersDetails = () => {
   return async (dispatch) => {
     dispatch({
-      type: LOGIN_REQUEST,
+      type: PROFILE_REQUEST,
     });
 
     try {
       const response = await getUsersDetailsApi();
 
       dispatch({
-        type: LOGIN_SUCCESS,
+        type: PROFILE_SUCCESS,
         payload: response,
       });
       return response;
@@ -104,7 +108,35 @@ export const usersDetails = () => {
           : error.message;
 
       dispatch({
-        type: LOGIN_FAILURE,
+        type: PROFILE_FAILURE,
+        payload: errorMessage,
+      });
+      throw error;
+    }
+  };
+};
+
+// UPDATE CURRENT USER PROFILE
+export const updateProfile = (profileData) => {
+  return async (dispatch) => {
+    dispatch({ type: PROFILE_REQUEST });
+
+    try {
+      const response = await updateUserProfileApi(profileData);
+
+      dispatch({
+        type: PROFILE_SUCCESS,
+        payload: response,
+      });
+      return response;
+    } catch (error) {
+      const errorMessage =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+
+      dispatch({
+        type: PROFILE_FAILURE,
         payload: errorMessage,
       });
       throw error;

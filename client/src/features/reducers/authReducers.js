@@ -5,6 +5,9 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  PROFILE_REQUEST,
+  PROFILE_SUCCESS,
+  PROFILE_FAILURE,
   LOGOUT,
 } from "../keyFactory";
 
@@ -31,10 +34,12 @@ export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_REQUEST:
     case LOGIN_REQUEST:
+    case PROFILE_REQUEST:
       return { ...state, loading: true, error: null, success: false };
 
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
+    case PROFILE_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -45,6 +50,7 @@ export const authReducer = (state = initialState, action) => {
 
     case REGISTER_FAILURE:
     case LOGIN_FAILURE:
+    case PROFILE_FAILURE:
       return {
         ...state,
         loading: false,

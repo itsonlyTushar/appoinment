@@ -4,6 +4,8 @@ import jwt from "jsonwebtoken";
 import { OAuth2Client } from "google-auth-library";
 import { hashPassword, comparePassword } from "../utils/hash.js";
 import { authenticate } from "../middlewares/auth.middleware.js";
+import { uploadProfilePicture } from "../middlewares/upload.middleware.js";
+import { uploadToCloudinary } from "../utils/cloudinary.js";
 
 const router = express.Router();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -73,7 +75,7 @@ router.post("/google", async (req, res) => {
     });
     
     const payload = ticket.getPayload();
-    const { email, name } = payload;
+    const { email, name, picture } = payload;
 
     let user = await User.findOne({ email });
     
@@ -86,6 +88,7 @@ router.post("/google", async (req, res) => {
         email,
         password: hashedPassword,
         contactNumber: "Not Provided",
+        profilePicture: picture || "",
       });
       await user.save();
     }
@@ -171,11 +174,53 @@ router.get("/me", authenticate, async (req, res) => {
         name: req.user.name,
         email: req.user.email,
         contactNumber: req.user.contactNumber,
+        profilePicture: req.user.profilePicture || "",
       },
     });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// UPDATE CURRENT USER PROFILE
+router.patch("/update-me", authenticate, uploadProfilePicture, async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    if (name !== undefined && !name.trim()) {
+      return res.status(400).json({ message: "Full name cannot be empty." });
+    }
+
+    const updates = {};
+    if (name !== undefined) updates.name = name.trim();
+
+    if (req.file) {
+      const uploadResult = await uploadToCloudinary(
+        req.file.buffer,
+        "doctor-appointment/profiles",
+      );
+      updates.profilePicture = uploadResult.secure_url;
+    }
+
+    const user = await User.findByIdAndUpdate(req.user._id, updates, {
+      new: true,
+      runValidators: true,
+    }).select("-password");
+
+    return res.status(200).json({
+      message: "Profile updated successfully.",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        contactNumber: user.contactNumber,
+        profilePicture: user.profilePicture || "",
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Unable to update profile." });
   }
 });
 

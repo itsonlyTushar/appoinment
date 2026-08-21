@@ -1,11 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { FcGoogle } from 'react-icons/fc';
+import { GoogleLogin } from '@react-oauth/google';
 import { PiSpinnerGap } from 'react-icons/pi';
 import { toast } from 'react-toastify';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
+import { registerGoogle } from '../api/auth.api';
 import { registerFields } from '../constants/fields/register';
 import { userRegistration } from '../features/actions/authActions';
 
@@ -24,7 +25,8 @@ const Register = () => {
 
   // HANDLE USER REGISTRATION FORM SUBMISSION
   const onSubmit = async (data) => {
-    const { confirmPassword, ...payload } = data;
+    const payload = { ...data };
+    delete payload.confirmPassword;
     try {
       const res = await dispatch(userRegistration(payload));
       if (res?.token) {
@@ -40,6 +42,19 @@ const Register = () => {
       const errorMessage =
         error?.response?.data?.message || error?.message || 'Registration failed. Please try again.';
       toast.error(errorMessage);
+    }
+  };
+
+  // HANDLE GOOGLE AUTHENTICATION 
+  const handleGoogleAuth= async ({ credential }) => {
+    try {
+      const res = await registerGoogle({ token: credential });
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('user', JSON.stringify(res.user));
+      toast.success(res.message || 'Account created successfully!');
+      navigate('/profile');
+    } catch (err) {
+      toast.error(err?.response?.data?.message || 'Google registration failed.');
     }
   };
 
@@ -111,10 +126,14 @@ const Register = () => {
           </div>
         </div>
 
-        <Button type="button" variant="outline" className="w-full py-1.5 gap-3">
-          <FcGoogle className="w-5 h-5" />
-          Sign up with Google
-        </Button>
+        <div className="flex justify-center">
+          <GoogleLogin
+            onSuccess={handleGoogleAuth}
+            onError={() => toast.error('Google registration failed.')}
+            text="signup_with"
+            width="320"
+          />
+        </div>
 
         <p className="mt-4 text-center text-sm text-body">
           Already have an account?{' '}

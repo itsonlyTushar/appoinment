@@ -28,3 +28,12 @@ export const getUsersDetails = async () => {
 
   return data;
 };
+
+// UPDATE USERS DETAILS - PATCH
+export const updateUserProfile = async (payload) => {
+  const { data } = await api.patch("/api/auth/update-me", payload, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+
+  return data;
+};

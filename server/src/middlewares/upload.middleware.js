@@ -33,6 +33,22 @@ const upload = multer({
   fileFilter,
 });
 
+const profileUpload = multer({
+  storage,
+  limits: {
+    fileSize: 2 * 1024 * 1024,
+  },
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith("image/")) {
+      cb(null, true);
+    } else {
+      const error = new Error("Only image files are allowed for profile pictures.");
+      error.statusCode = 400;
+      cb(error, false);
+    }
+  },
+});
+
 // MIDDLEWARE TO HANDLE MEDICAL REPORT UPLOAD
 export const uploadReports = (req, res, next) => {
   const uploadHandler = upload.single("reports");
@@ -50,6 +66,20 @@ export const uploadReports = (req, res, next) => {
       return res.status(400).json({
         message: err.message,
       });
+    }
+    next();
+  });
+};
+
+export const uploadProfilePicture = (req, res, next) => {
+  const uploadHandler = profileUpload.single("profilePicture");
+
+  uploadHandler(req, res, (err) => {
+    if (err instanceof multer.MulterError && err.code === "LIMIT_FILE_SIZE") {
+      return res.status(400).json({ message: "Profile picture exceeds 2MB limit" });
+    }
+    if (err) {
+      return res.status(400).json({ message: err.message });
     }
     next();
   });

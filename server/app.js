@@ -11,16 +11,19 @@ const app = express();
 app.use((req, res, next) => {
   const origin = req.headers.origin;
 
-  const clientURL = process.env.CLIENT_URL
-    ? process.env.CLIENT_URL.replace(/\/$/, "")
-    : "";
+  const allowOrigins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    process.env.CLIENT_URL,
+  ]
+    .filter(Boolean)
+    .map((value) => value.replace(/\/$/, ""));
 
-  const allowOrigins = ["http://localhost:5173", clientURL].filter(Boolean);
-
-  if (origin && allowOrigins.includes(origin)) {
+  if (origin && allowOrigins.includes(origin.replace(/\/$/, ""))) {
     res.setHeader("Access-Control-Allow-Origin", origin);
-  } else {
-    res.setHeader("Access-Control-Allow-Origin", allowOrigins[0] || "*");
+    res.setHeader("Vary", "Origin");
+  } else if (origin) {
+    return res.status(403).json({ message: "Origin is not allowed." });
   }
 
   // ALLOW METHODS TYPE
@@ -32,7 +35,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", "true");
 
   if (req.method === "OPTIONS") {
-    return res.status(200).end();
+    return res.status(204).end();
   }
 
   next();

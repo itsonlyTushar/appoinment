@@ -11,13 +11,13 @@ const getCloudinaryConfig = () => ({
 cloudinary.config(getCloudinaryConfig());
 
 // UPLOAD REPORT TO CLOUDINARY
-export const uploadToCloudinary = (buffer) => {
+export const uploadToCloudinary = (buffer, folder = "doctor-appointment/reports") => {
   cloudinary.config(getCloudinaryConfig());
 
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {
-        folder: "doctor-appointment/reports",
+        folder,
         resource_type: "auto",
       },
       (error, result) => {
