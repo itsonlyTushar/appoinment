@@ -111,11 +111,14 @@ const Appointment = () => {
       )}
 
       {/* SHOW EMPTY SEARCH RESULTS */}
-      {!loading && !error && bookingList.length > 0 && filteredBookings.length === 0 && (
-        <div className="text-center py-12 bg-surface rounded-2xl border border-body/10 text-body">
-          No appointments found matching.
-        </div>
-      )}
+      {!loading &&
+        !error &&
+        bookingList.length > 0 &&
+        filteredBookings.length === 0 && (
+          <div className="text-center py-12 bg-surface rounded-2xl border border-body/10 text-body">
+            No appointments found matching.
+          </div>
+        )}
 
       {!loading && !error && filteredBookings.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -126,17 +129,21 @@ const Appointment = () => {
               badge={
                 booking.date
                   ? new Date(booking.date).toLocaleString([], {
-                    dateStyle: "medium",
-                    timeStyle: "short",
-                  })
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                    })
                   : undefined
               }
-              description={booking.doctor ? `To See : ${booking.doctor}` : undefined}
+              description={
+                booking.doctor ? `To See : ${booking.doctor}` : undefined
+              }
             >
               {booking.comments && (
                 <div className="mt-3 pt-3 border-t border-body/10">
                   <p className="text-xs font-medium text-body">
-                    <span className="font-semibold text-heading">Additional Details: </span>
+                    <span className="font-semibold text-heading">
+                      Additional Details:{" "}
+                    </span>
                     {booking.comments}
                   </p>
                 </div>
@@ -169,8 +176,8 @@ const Appointment = () => {
         ModalTitle="Medical Report"
         actions={
           selectedReport &&
-            (selectedReport.startsWith("http://") ||
-              selectedReport.startsWith("https://")) ? (
+          (selectedReport.startsWith("http://") ||
+            selectedReport.startsWith("https://")) ? (
             <a
               href={selectedReport}
               target="_blank"
@@ -189,7 +196,9 @@ const Appointment = () => {
             )}
 
             {selectedReport.toLowerCase().includes(".pdf") ? (
-              <div className={`space-y-3 ${isReportLoading ? "hidden" : "block"}`}>
+              <div
+                className={`space-y-3 ${isReportLoading ? "hidden" : "block"}`}
+              >
                 <iframe
                   src={selectedReport}
                   title="Medical Report PDF"
@@ -201,8 +210,9 @@ const Appointment = () => {
             ) : selectedReport.startsWith("http://") ||
               selectedReport.startsWith("https://") ? (
               <div
-                className={`flex items-center justify-center p-2 bg-background rounded-xl border border-body/10 ${isReportLoading ? "hidden" : "flex"
-                  }`}
+                className={`flex items-center justify-center p-2 bg-background rounded-xl border border-body/10 ${
+                  isReportLoading ? "hidden" : "flex"
+                }`}
               >
                 <img
                   src={selectedReport}
@@ -214,7 +224,9 @@ const Appointment = () => {
               </div>
             ) : (
               <div className="p-4 bg-background rounded-xl border border-body/10 text-center">
-                <p className="text-sm font-medium text-heading">{selectedReport}</p>
+                <p className="text-sm font-medium text-heading">
+                  {selectedReport}
+                </p>
               </div>
             )}
           </div>

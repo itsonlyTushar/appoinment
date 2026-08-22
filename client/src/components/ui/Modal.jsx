@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { RxCross2 } from "react-icons/rx";
 import Button from "./Button";
 
@@ -26,8 +27,8 @@ const Modal = ({
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
-
-  return (
+  // CREATE PORTAL FOR MODAL, THIS WILL INJECT IN EXSTIING DOM VISUALLY 
+  return createPortal(
     <div
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose?.();
@@ -76,7 +77,8 @@ const Modal = ({
           {actions}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

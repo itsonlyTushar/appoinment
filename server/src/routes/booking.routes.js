@@ -26,6 +26,7 @@ router.post("/new", authenticate, uploadReports, async (req, res) => {
         ? date.split(" ")[1]?.slice(0, 5)
         : "";
 
+    // IF CLIENT SENDS INVALID DATE AND SLOT WILL PREVENT BY GIVIGN 400 ERROR
     if (timePart && !VALID_TIME_SLOTS.includes(timePart)) {
       return res.status(400).json({
         message: "Invalid appointment slot.",
@@ -115,7 +116,7 @@ router.get("/years", authenticate, async (req, res) => {
     // FIND YEARS TARGETING DATE FIELD FROM MONGODB
     const bookings = await Booking.find({ user: req.user._id }, "date");
 
-    // CREATE SET AND SORT THEM IN DESENDING ORDER
+    // CREATE YEARS SET AND SORT THEM IN DESENDING ORDER
     const yearsSet = new Set();
     bookings.forEach((booking) => {
       if (booking.date) {
@@ -125,7 +126,6 @@ router.get("/years", authenticate, async (req, res) => {
         }
       }
     });
-
     const years = Array.from(yearsSet).sort((a, b) => b - a);
 
     return res.status(200).json({ years });

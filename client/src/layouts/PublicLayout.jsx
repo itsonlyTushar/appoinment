@@ -1,9 +1,16 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import logo from '../assets/logo/logo.png';
+import Footer from '../components/Footer';
 
 export default function PublicLayout() {
   const location = useLocation();
   const isLanding = location.pathname === '/';
+  
+  // EXTRACT USER STATE FROM REDUX REDUCER
+  const { userInfo } = useSelector((state) => state.auth);
+  const token = localStorage.getItem('token');
+  const isAuthenticated = Boolean(userInfo || token);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -16,12 +23,21 @@ export default function PublicLayout() {
           <Link to="/services" className="text-xs sm:text-sm font-medium text-heading hover:text-primary transition-colors px-2.5 sm:px-3 py-2 rounded-lg hidden sm:inline-block">
             Services
           </Link>
-          <Link to="/login" className="text-xs sm:text-sm font-medium text-heading hover:text-primary transition-colors px-3 sm:px-4 py-2 rounded-lg">
-            Sign In
-          </Link>
-          <Link to="/register" className="text-xs sm:text-sm font-medium bg-primary text-surface px-3 sm:px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors shadow-sm">
-            Get Started
-          </Link>
+          {/* AUTHENTICATED USERS WILL SEE BOOK APPOINTMENT OPTION INSTEAD LOGIN OPTION AND GET STARTED - REGISTER OPTION  */}
+          {isAuthenticated ? (
+            <Link to="/book" className="text-xs sm:text-sm font-medium bg-primary text-surface px-3 sm:px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors shadow-sm">
+              Book Appointment
+            </Link>
+          ) : (
+            <>
+              <Link to="/login" className="text-xs sm:text-sm font-medium text-heading hover:text-primary transition-colors px-3 sm:px-4 py-2 rounded-lg">
+                Sign In
+              </Link>
+              <Link to="/register" className="text-xs sm:text-sm font-medium bg-primary text-surface px-3 sm:px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors shadow-sm">
+                Get Started
+              </Link>
+            </>
+          )}
         </div>
       </header>
 
@@ -29,6 +45,9 @@ export default function PublicLayout() {
       <main className={`flex-grow ${isLanding ? 'pt-0' : 'pt-16'}`}>
         <Outlet />
       </main>
+
+      {/* PUBLIC FOOTER */}
+      <Footer />
     </div>
   );
 }

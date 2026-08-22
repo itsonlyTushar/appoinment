@@ -13,7 +13,7 @@ import { userRegistration } from '../features/actions/authActions';
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.auth);
 
   // INITIALIZATION FOR FORM STATE, VALIDATION, AND SUBMISSION HANDLING
   const {
@@ -29,6 +29,7 @@ const Register = () => {
     delete payload.confirmPassword;
     try {
       const res = await dispatch(userRegistration(payload));
+      localStorage.setItem('lastLoginMethod', 'email');
       if (res?.token) {
         localStorage.setItem('token', res.token);
         if (res?.user) {
@@ -36,25 +37,25 @@ const Register = () => {
         }
       }
       toast.success(res?.message || 'Account created successfully!');
-      navigate('/profile');
+      navigate('/book');
     } catch (error) {
-      console.error('Error in registration', error);
       const errorMessage =
-        error?.response?.data?.message || error?.message || 'Registration failed. Please try again.';
+        error?.response?.data?.message || error?.message;
       toast.error(errorMessage);
     }
   };
 
   // HANDLE GOOGLE AUTHENTICATION 
-  const handleGoogleAuth= async ({ credential }) => {
+  const handleGoogleAuth = async ({ credential }) => {
     try {
       const res = await registerGoogle({ token: credential });
+      localStorage.setItem('lastLoginMethod', 'google');
       localStorage.setItem('token', res.token);
       localStorage.setItem('user', JSON.stringify(res.user));
       toast.success(res.message || 'Account created successfully!');
-      navigate('/profile');
+      navigate('/book');
     } catch (err) {
-      toast.error(err?.response?.data?.message || 'Google registration failed.');
+      toast.error(err?.response?.data?.message || err?.message);
     }
   };
 
@@ -68,12 +69,6 @@ const Register = () => {
           <h1 className="text-2xl font-heading font-bold text-heading mb-1.5">Patient Registration</h1>
           <p className="text-body text-sm">Register yourself as a patient</p>
         </header>
-
-        {error && (
-          <div className="p-3 mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg">
-            {error}
-          </div>
-        )}
 
         {/* REGISTRATION FORM */}
         <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-y-4 gap-x-3">
@@ -117,13 +112,8 @@ const Register = () => {
           </div>
         </form>
 
-        <div className="relative my-4">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-body/10"></div>
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-surface text-body/60">Or continue with</span>
-          </div>
+        <div className="relative my-4 text-center">
+          <span className="px-2 bg-surface text-body/60">Or continue with</span>
         </div>
 
         <div className="flex justify-center">
@@ -135,7 +125,18 @@ const Register = () => {
           />
         </div>
 
-        <p className="mt-4 text-center text-sm text-body">
+        <p className="mt-4 text-center text-xs text-body leading-relaxed">
+          By creating an account, you agree to our{' '}
+          <Link to="/terms-of-service" className="text-primary hover:underline font-medium">
+            Terms
+          </Link>
+          <span className='mx-1'>and</span>
+          <Link to="/privacy-policy" className="text-primary hover:underline font-medium">
+            Privacy Policy
+          </Link>
+        </p>
+
+        <p className="mt-3 text-center text-sm text-body">
           Already have an account?{' '}
           <Link to="/login" className="font-medium text-primary hover:text-primary/80 transition-colors">
             Sign in

@@ -1,11 +1,24 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import AppRoutes from './routes/AppRoutes';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: 'ease-out-cubic',
+    });
+  }, []);
+
   return (
     <Router>
+      <ScrollToTop />
       <AppRoutes />
       <ToastContainer
         position="top-right"

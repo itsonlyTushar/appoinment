@@ -8,6 +8,8 @@ import Profile from '../pages/Profile';
 import Services from '../pages/Services';
 import Appointment from '../pages/Appointment';
 import Booking from '../pages/Booking';
+import PrivacyPolicy from '../pages/PrivacyPolicy';
+import TermsOfService from '../pages/TermsOfService';
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
 
@@ -18,6 +20,10 @@ export default function AppRoutes() {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Landing />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/terms" element={<TermsOfService />} />
         <Route element={<PublicRoute />}>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

@@ -20,7 +20,7 @@ const Pagination = ({
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage <= 1}
-        className="flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium rounded-lg border border-body/20 bg-surface text-heading hover:bg-background disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        className="flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium rounded-lg border border-body/20 bg-surface text-heading hover:bg-background disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors"
         aria-label="Previous Page"
       >
         <IoChevronBackOutline size={16} />
@@ -37,7 +37,7 @@ const Pagination = ({
               key={`page-${page}`}
               onClick={() => onPageChange(page)}
               aria-current={isActive ? 'page' : undefined}
-              className={`w-9 h-9 rounded-lg text-sm font-medium transition-colors ${
+              className={`w-9 h-9 rounded-lg text-sm font-medium cursor-pointer transition-colors ${
                 isActive
                   ? 'bg-primary text-white shadow-sm font-semibold'
                   : 'bg-surface text-heading border border-body/20 hover:bg-background'
@@ -53,7 +53,7 @@ const Pagination = ({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage >= totalPages}
-        className="flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium rounded-lg border border-body/20 bg-surface text-heading hover:bg-background disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        className="flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium rounded-lg border border-body/20 bg-surface text-heading hover:bg-background disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors"
         aria-label="Next Page"
       >
         <span className="hidden sm:inline">Next</span>
