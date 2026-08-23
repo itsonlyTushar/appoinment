@@ -48,7 +48,7 @@ export const QUICK_SERVICES = [
 ];
 
 export const DOCTOR_IMAGE_URL =
-  "https://images.unsplash.com/photo-1582750433449-648ed127bb54?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+  "https://res.cloudinary.com/dartdvch1/image/upload/v1787492389/ChatGPT_Image_Aug_22_2026_04_49_55_PM_hbs3gc.png";
 
 export const DEPARTMENT_ICONS = {
   Cardiology: LuHeartPulse,

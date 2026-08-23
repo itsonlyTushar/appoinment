@@ -8,8 +8,8 @@ import ChooseFile from "../components/ui/ChooseFile";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import Loader from "../components/ui/Loader";
-import Modal from "../components/ui/Modal";
-import { updateProfile, usersDetails, userLogout } from "../features/actions/authActions";
+import LogoutModal from "../components/ui/LogoutModal";
+import { updateProfile, usersDetails } from "../features/actions/authActions";
 
 const defaultProfile = {
     name: "",
@@ -102,14 +102,6 @@ const Profile = () => {
             }
         }
         setIsEditing(false);
-    };
-
-    // CONFIRM LOGOUT AND CLEAR SESSION
-    const handleLogout = () => {
-        setIsLogoutModalOpen(false);
-        dispatch(userLogout());
-        toast.success("Logged out successfully!");
-        navigate("/");
     };
 
     // DEFAULT IMAGE URL OR EXISTING URL 
@@ -247,24 +239,10 @@ const Profile = () => {
             )}
 
             {/* LOGOUT CONFIRMATION MODAL */}
-            <Modal
+            <LogoutModal
                 isOpen={isLogoutModalOpen}
                 onClose={() => setIsLogoutModalOpen(false)}
-                ModalTitle="Confirm Logout"
-                actions={
-                    <Button
-                        type="button"
-                        onClick={handleLogout}
-                        className="px-4 py-2 text-sm"
-                    >
-                        Logout
-                    </Button>
-                }
-            >
-                <p className="text-body text-sm">
-                    Are you sure you want to log out of your account?
-                </p>
-            </Modal>
+            />
         </>
     );
 };

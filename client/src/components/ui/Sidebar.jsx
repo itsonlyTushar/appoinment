@@ -1,29 +1,14 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { NavLink, Link } from 'react-router-dom';
 import { LuLogOut } from "react-icons/lu";
-import { toast } from 'react-toastify';
-import { navItems } from '../../constants/navItems';
-import { userLogout } from '../../features/actions/authActions';
+import { navItems } from '../../lib/navItems';
 import { RxCross2 } from "react-icons/rx";
-import Modal from './Modal';
-import Button from './Button';
+import LogoutModal from './LogoutModal';
 import logo from '../../assets/logo/logo.png';
 import collapsedLogo from '../../assets/logo/collapsed.png';
 
 const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [isModalOpen, setisModalOpen] = useState(false);
-
-    // CONFIRM LOGOUT AND SHOW TOAST AFTERWARDS 
-    const handleConfirmLogout = () => {
-        setisModalOpen(false);
-        if (setMobileOpen) setMobileOpen(false);
-        dispatch(userLogout());
-        toast.success("Logged out successfully!");
-        navigate('/');
-    };
 
     return (
         <aside
@@ -99,25 +84,11 @@ const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
                 </button>
 
                 {/* MODAL WHEN CLICK LOGOUT  */}
-                <Modal
+                <LogoutModal
                     isOpen={isModalOpen}
                     onClose={() => setisModalOpen(false)}
-                    ModalTitle="Confirm Logout"
-                    actions={
-                        <Button
-                            type="button"
-                            variant="primary"
-                            onClick={handleConfirmLogout}
-                            className="px-4 py-2 text-sm"
-                        >
-                            Logout
-                        </Button>
-                    }
-                >
-                    <p className="text-body text-sm">
-                        Are you sure you want to log out of your account?
-                    </p>
-                </Modal>
+                    onAfterLogout={() => setMobileOpen && setMobileOpen(false)}
+                />
             </div>
         </aside>
     );

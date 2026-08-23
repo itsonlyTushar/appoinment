@@ -1,9 +1,14 @@
+import { LuLayoutDashboard, LuHistory } from "react-icons/lu";
 import { MdCollectionsBookmark } from "react-icons/md";
-import { LuHistory } from "react-icons/lu";
 import { IoPersonCircleOutline } from "react-icons/io5";
 
 // PRIVATE NAVIGATION ROUTE LINKS 
 export const navItems = [
+  {
+    label: "Dashboard",
+    icon: LuLayoutDashboard,
+    href: "/dashboard",
+  },
   {
     label: "Book Appointment",
     icon: MdCollectionsBookmark,

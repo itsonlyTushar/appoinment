@@ -33,10 +33,7 @@ export const userRegistration = (userData) => {
       });
       return response;
     } catch (error) {
-      const errorMessage =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
+      const errorMessage = error.response?.data?.message || error.message;
 
       dispatch({
         type: REGISTER_FAILURE,
@@ -63,10 +60,7 @@ export const userLogin = (credentials) => {
       });
       return response;
     } catch (error) {
-      const errorMessage =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
+      const errorMessage = error.response?.data?.message || error.message;
 
       dispatch({
         type: LOGIN_FAILURE,
@@ -102,10 +96,7 @@ export const usersDetails = () => {
       });
       return response;
     } catch (error) {
-      const errorMessage =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
+      const errorMessage = error.response?.data?.message || error.message;
 
       dispatch({
         type: PROFILE_FAILURE,
@@ -130,10 +121,7 @@ export const updateProfile = (profileData) => {
       });
       return response;
     } catch (error) {
-      const errorMessage =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
+      const errorMessage = error.response?.data?.message || error.message;
 
       dispatch({
         type: PROFILE_FAILURE,

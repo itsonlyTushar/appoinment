@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { BiSupport } from "react-icons/bi";
 import { LuPhone } from "react-icons/lu";
 import Modal from "./Modal";
+import { CONTACT_INFO } from "../../constants/contactDetails";
 
 export default function Header({
     collapsed,
@@ -68,7 +69,7 @@ export default function Header({
                 ModalTitle="Help & Support Desk"
                 actions={
                     <a
-                        href="tel:+919327584894"
+                        href={`tel:${CONTACT_INFO.phoneTel}`}
                         className="inline-flex items-center gap-2 bg-primary text-white hover:bg-primary/90 px-4 py-2 text-sm font-medium rounded-xl transition-colors"
                     >
                         <LuPhone size={15} />
@@ -84,10 +85,10 @@ export default function Header({
                                     Phone Helpline
                                 </span>
                                 <a
-                                    href="tel:+919327584894"
+                                    href={`tel:${CONTACT_INFO.phoneTel}`}
                                     className="text-primary hover:underline font-medium"
                                 >
-                                    +91 93275 84894
+                                    {CONTACT_INFO.phone}
                                 </a>
                             </div>
                         </div>
@@ -98,10 +99,10 @@ export default function Header({
                                     Email Support
                                 </span>
                                 <a
-                                    href="mailto:support@healthease.com"
+                                    href={`mailto:${CONTACT_INFO.email}`}
                                     className="text-primary hover:underline font-medium"
                                 >
-                                    support@healthease.com
+                                    {CONTACT_INFO.email}
                                 </a>
                             </div>
                         </div>
@@ -112,7 +113,7 @@ export default function Header({
                                     Operating Hours
                                 </span>
                                 <span className="text-body font-normal">
-                                    Mon – Sat: 8:00 AM – 8:00 PM
+                                    {CONTACT_INFO.operatingHours}
                                 </span>
                             </div>
                         </div>

@@ -8,6 +8,7 @@ import Profile from '../pages/Profile';
 import Services from '../pages/Services';
 import Appointment from '../pages/Appointment';
 import Booking from '../pages/Booking';
+import Dashboard from '../pages/Dashboard';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import TermsOfService from '../pages/TermsOfService';
 import ProtectedRoute from './ProtectedRoute';
@@ -33,6 +34,7 @@ export default function AppRoutes() {
       {/* PRIVATE ROUTES PROTECTED BY PROTECTED ROUTE */}
       <Route element={<ProtectedRoute />}>
         <Route element={<PrivateLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/book" element={<Booking />} />
           <Route path="/appointment" element={<Appointment />} />

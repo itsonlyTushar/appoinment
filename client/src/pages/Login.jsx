@@ -6,13 +6,14 @@ import { PiSpinnerGap } from 'react-icons/pi';
 import { toast } from 'react-toastify';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
-import { registerGoogle } from '../api/auth.api';
 import { userLogin } from '../features/actions/authActions';
+import { useGoogleAuth } from '../hooks/useGoogleAuth';
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
+  const { handleGoogleAuth } = useGoogleAuth();
 
   // GET SAVED MAIL AND LAST USED METHOD FROM LOCAL STORAGE
   const savedEmail = localStorage.getItem('rememberedEmail') || '';
@@ -56,21 +57,6 @@ const Login = () => {
       const errorMessage =
         err?.response?.data?.message || err?.message;
       toast.error(errorMessage);
-    }
-  };
-
-  // CREATE GOOGLE LOGIN,AND FIRE TOAST AFTER SUCCESSFULL LOGIN 
-  const handleGoogleSuccess = async ({ credential }) => {
-    try {
-      const res = await registerGoogle({ token: credential });
-      localStorage.setItem('lastLoginMethod', 'google');
-      localStorage.setItem('token', res.token);
-      localStorage.setItem('user', JSON.stringify(res.user));
-      toast.success(res.message);
-      // REDIRECT USER TO BOOKING APPOINTMENT PAGE 
-      navigate('/book');
-    } catch (err) {
-      toast.error(err?.response?.data?.message || err?.message);
     }
   };
 
@@ -162,7 +148,7 @@ const Login = () => {
               </span>
             )}
             <GoogleLogin
-              onSuccess={handleGoogleSuccess}
+              onSuccess={handleGoogleAuth}
               onError={() => toast.error('Google login failed.')}
               text="signin_with"
               width="320"
@@ -170,8 +156,8 @@ const Login = () => {
           </div>
         </div>
 
-        <p className="mt-8 text-center text-sm text-body">
-          Don't have an account?{' '}
+        <p className="mt-8 text-center mr-1 text-sm text-body">
+          <span className='mr-1'>Don't have an account?</span>
           <Link to="/register" className="font-medium text-primary hover:text-primary/80 transition-colors">
             Create account
           </Link>

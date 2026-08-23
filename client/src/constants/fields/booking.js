@@ -18,11 +18,20 @@ export const timeSlots = [
 ];
 
 // BOOKING PAGE FORM FIELDS
+import {
+  PiCalendarBlank,
+  PiBuildings,
+  PiUserCircle,
+  PiChatText,
+  PiFileText,
+} from "react-icons/pi";
+
 export const bookingFields = [
   {
     name: "date",
     label: "Appointment Date",
     type: "date",
+    icon: PiCalendarBlank,
     placeholder: "Select date",
     required: "Appointment date is required",
     invalidMessage: "Please select a valid date",
@@ -31,6 +40,7 @@ export const bookingFields = [
     name: "department",
     label: "Department",
     type: "select",
+    icon: PiBuildings,
     placeholder: "Select department",
     required: "Department is required",
     invalidMessage: "Please select valid department",
@@ -39,6 +49,7 @@ export const bookingFields = [
     name: "doctor",
     label: "Doctor",
     type: "select",
+    icon: PiUserCircle,
     placeholder: "Select doctor",
     required: "Doctor is required",
     invalidMessage: "Please select a doctor",
@@ -47,6 +58,7 @@ export const bookingFields = [
     name: "comments",
     label: "Comments",
     type: "textarea",
+    icon: PiChatText,
     placeholder: "Write other instructions...",
     invalidMessage: "Enter valid input",
   },
@@ -54,11 +66,10 @@ export const bookingFields = [
     name: "reports",
     label: "Medical Reports",
     type: "file",
+    icon: PiFileText,
     accept: "image/*,application/pdf,.pdf",
     required: false,
     invalidMessage:
       "Only image files JPEG, JPG, PNG and PDF documents under 2MB are allowed",
   },
 ];
-
-export const registerFields = bookingFields;

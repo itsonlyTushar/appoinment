@@ -1,5 +1,16 @@
-import { bookingUser, getUserBookings, getBookingYears } from "../../api/booking.api";
-import { BOOKING_FAIL, BOOKING_REQ, BOOKING_SUC, YEARS_REQ, YEARS_SUC, YEARS_FAIL } from "../keyFactory";
+import {
+  bookingUser,
+  getUserBookings,
+  getBookingYears,
+} from "../../api/booking.api";
+import {
+  BOOKING_FAIL,
+  BOOKING_REQ,
+  BOOKING_SUC,
+  YEARS_REQ,
+  YEARS_SUC,
+  YEARS_FAIL,
+} from "../keyFactory";
 
 // ACTION : CREATE NEW BOOKING
 export const newBooking = (data) => {
@@ -17,10 +28,7 @@ export const newBooking = (data) => {
       });
       return response;
     } catch (error) {
-      const errorMessage =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
+      const errorMessage = error.response?.data?.message || error.message;
 
       dispatch({
         type: BOOKING_FAIL,
@@ -46,16 +54,13 @@ export const getAllBookings = (year) => {
       });
       return response;
     } catch (err) {
-      const errorMessage =
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message;
+      const errorMessage = err.response?.data?.message || err.message;
 
       dispatch({
         type: BOOKING_FAIL,
         payload: errorMessage,
       });
-      throw err
+      throw err;
     }
   };
 };
@@ -75,10 +80,7 @@ export const fetchBookingYears = () => {
       });
       return response;
     } catch (err) {
-      const errorMessage =
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message;
+      const errorMessage = err.response?.data?.message || err.message;
 
       dispatch({
         type: YEARS_FAIL,

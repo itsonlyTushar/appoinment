@@ -8,13 +8,14 @@ const ChooseFile = forwardRef(function ChooseFile(
         error,
         disabled = false,
         accept = "image/*",
+        hideLabel = false,
         ...props
     },
     ref,
 ) {
     return (
         <div className={`grid w-full items-center gap-1.5 ${className}`}>
-            {label && (
+            {label && !hideLabel && (
                 <label
                     htmlFor={id}
                     className="text-sm font-medium text-heading leading-none"

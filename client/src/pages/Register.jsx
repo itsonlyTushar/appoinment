@@ -6,14 +6,15 @@ import { PiSpinnerGap } from 'react-icons/pi';
 import { toast } from 'react-toastify';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
-import { registerGoogle } from '../api/auth.api';
 import { registerFields } from '../constants/fields/register';
 import { userRegistration } from '../features/actions/authActions';
+import { useGoogleAuth } from '../hooks/useGoogleAuth';
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
+  const { handleGoogleAuth } = useGoogleAuth();
 
   // INITIALIZATION FOR FORM STATE, VALIDATION, AND SUBMISSION HANDLING
   const {
@@ -42,20 +43,6 @@ const Register = () => {
       const errorMessage =
         error?.response?.data?.message || error?.message;
       toast.error(errorMessage);
-    }
-  };
-
-  // HANDLE GOOGLE AUTHENTICATION 
-  const handleGoogleAuth = async ({ credential }) => {
-    try {
-      const res = await registerGoogle({ token: credential });
-      localStorage.setItem('lastLoginMethod', 'google');
-      localStorage.setItem('token', res.token);
-      localStorage.setItem('user', JSON.stringify(res.user));
-      toast.success(res.message || 'Account created successfully!');
-      navigate('/book');
-    } catch (err) {
-      toast.error(err?.response?.data?.message || err?.message);
     }
   };
 
@@ -126,7 +113,7 @@ const Register = () => {
         </div>
 
         <p className="mt-4 text-center text-xs text-body leading-relaxed">
-          By creating an account, you agree to our{' '}
+          <span className='mr-1'>By creating an account, you agree to our</span>
           <Link to="/terms-of-service" className="text-primary hover:underline font-medium">
             Terms
           </Link>
@@ -137,7 +124,7 @@ const Register = () => {
         </p>
 
         <p className="mt-3 text-center text-sm text-body">
-          Already have an account?{' '}
+          <span className='mr-1'> Already have an account?</span>
           <Link to="/login" className="font-medium text-primary hover:text-primary/80 transition-colors">
             Sign in
           </Link>

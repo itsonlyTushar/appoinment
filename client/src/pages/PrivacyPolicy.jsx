@@ -10,6 +10,7 @@ import {
   LuEyeOff,
   LuArrowLeft
 } from 'react-icons/lu';
+import { CONTACT_INFO } from '../constants/contactDetails';
 
 const SECTIONS = [
   {
@@ -145,8 +146,16 @@ const PrivacyPolicy = () => {
           <h3 className="text-base sm:text-lg font-semibold text-heading">
             Questions About Your Privacy?
           </h3>
-          <p className="text-xs sm:text-sm text-body max-w-xl mx-auto">
-            If you have any questions or concerns regarding our privacy practices or how your healthcare data is protected, please contact our support team.
+          <p className="text-xs sm:text-sm text-body max-w-xl mx-auto leading-relaxed mr-1">
+            If you have any questions or concerns regarding our privacy practices or how your healthcare data is protected, please reach out to our team at
+            <a href={`mailto:${CONTACT_INFO.email}`} className="text-primary mr-1 font-medium hover:underline">
+              {CONTACT_INFO.email}
+            </a>
+            or call
+            <a href={`tel:${CONTACT_INFO.phoneTel}`} className="text-primary ml-1 font-medium hover:underline">
+              {CONTACT_INFO.phone}
+            </a>
+            ({CONTACT_INFO.operatingHours}).
           </p>
           <div className="pt-2">
             <Link

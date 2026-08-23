@@ -11,14 +11,14 @@ import { toast } from "react-toastify";
 import { bookingFields, timeSlots } from "../constants/fields/booking";
 import { departments } from "../constants/departments";
 import { newBooking } from "../features/actions/bookingActions";
-import { PiSpinnerGap } from "react-icons/pi";
+import { PiSpinnerGap, PiClock } from "react-icons/pi";
 import BookingInstructions from "../components/ui/BookingInstructions";
-import { useEffect, useRef } from "react";
 
 const departmentOptions = departments.map((dept) => ({
   value: dept.name,
   label: dept.name,
 }));
+// NEW BOOKINGS WILL BE HANDLED FROM THIS 
 
 const Booking = () => {
   const navigate = useNavigate();
@@ -51,19 +51,10 @@ const Booking = () => {
   const selectedSlot = watch("slot");
 
   // BUILD DOCTOR OPTIONS BASED ON SELECTED DEPARTMENT
-  const doctorOptions = (() => {
-    const dept = departments.find((d) => d.name === selectedDepartment);
-    if (!dept) return [];
-    return dept.doctors.map((doc) => ({ value: doc, label: doc }));
-  })();
-
-  // RESET DOCTOR WHEN DEPARTMENT CHANGES
-  useEffect(() => {
-    if (prevDepartmentRef.current !== selectedDepartment) {
-      setValue("doctor", "");
-      prevDepartmentRef.current = selectedDepartment;
-    }
-  }, [selectedDepartment, setValue]);
+  const selectedDept = departments.find((dept) => dept.name === selectedDepartment);
+  const doctorOptions = selectedDept
+    ? selectedDept.doctors.map((doc) => ({ value: doc, label: doc }))
+    : [];
 
   // GET OPTIONS FOR A SELECT FIELD
   const getSelectOptions = (fieldName) => {
@@ -112,14 +103,15 @@ const Booking = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full bg-surface rounded-2xl border border-body/10 p-6 md:p-8 space-y-4"
       >
-        {bookingFields.map((field) => (
+        {bookingFields.map((field) => {
+          const FieldIcon = field.icon;
+          return (
           <div key={field.name} className="space-y-1.5">
-            {field.type !== "file" && (
-              <label className="text-sm font-medium text-heading">
-                {field.label}
-                {field.required && "*"}
-              </label>
-            )}
+            <label className="flex items-center gap-1.5 text-sm font-medium text-heading">
+              {FieldIcon && <FieldIcon className="text-base text-primary" />}
+              {field.label}
+              {field.required && "*"}
+            </label>
 
             {field.type === "select" ? (
               <Controller
@@ -136,7 +128,12 @@ const Booking = () => {
                   <Select
                     options={getSelectOptions(field.name)}
                     value={value}
-                    onChange={onChange}
+                    onChange={(val) => {
+                      onChange(val);
+                      if (field.name === "department") {
+                        setValue("doctor", "");
+                      }
+                    }}
                     placeholder={field.placeholder}
                     error={!!errors[field.name]}
                     disabled={field.name === "doctor" && !selectedDepartment}
@@ -147,6 +144,7 @@ const Booking = () => {
               <ChooseFile
                 id={field.name}
                 label={field.label}
+                hideLabel
                 accept={field.accept || "image/*,application/pdf,.pdf"}
                 error={!!errors[field.name]}
                 {...register(field.name, {
@@ -185,7 +183,8 @@ const Booking = () => {
                 {/* AVAILABLE TIME SLOTS */}
                 <div className="space-y-2 pt-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-heading uppercase tracking-wider">
+                    <span className="flex items-center gap-1.5 text-xs font-semibold text-heading uppercase tracking-wider">
+                      <PiClock className="text-sm text-primary" />
                       Time Slot*
                     </span>
                   </div>
@@ -202,11 +201,10 @@ const Booking = () => {
                               shouldValidate: true,
                             })
                           }
-                          className={`py-1 px-1.5 text-xs font-medium rounded-md border transition-all duration-150 text-center cursor-pointer ${
-                            isSelected
-                              ? "bg-primary text-white border-primary shadow-xs ring-2 ring-primary/20"
-                              : "bg-surface text-body border-body/10 hover:border-primary/40 hover:bg-primary/5"
-                          }`}
+                          className={`py-1 px-1.5 text-xs font-medium rounded-md border transition-all duration-150 text-center cursor-pointer ${isSelected
+                            ? "bg-primary text-white border-primary shadow-xs ring-2 ring-primary/20"
+                            : "bg-surface text-body border-body/10 hover:border-primary/40 hover:bg-primary/5"
+                            }`}
                         >
                           {slot.label}
                         </button>
@@ -252,7 +250,8 @@ const Booking = () => {
               </p>
             )}
           </div>
-        ))}
+          );
+        })}
 
         {/* SEND BOOKING TO THE SERVER  */}
         <div className="pt-2">

@@ -51,7 +51,7 @@ const Landing = () => {
 
           {/* TWO SECTIONS SPLIT SIDE BY SIDE */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-            {/* SUB-SECTION 1: CLINICAL SPECIALITIES FROM departments.js (COMES FROM LEFT) */}
+            {/* CLINICAL SPECIALITIES FROM departments.js (COMES FROM LEFT) */}
             <section
               aria-labelledby="clinical-specialities-title"
               data-aos="fade-right"
@@ -74,6 +74,7 @@ const Landing = () => {
                 </header>
 
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 p-0 list-none m-0">
+                  {/* MAP DEPARTMENTS  */}
                   {departments.map((dept, index) => {
                     const Icon = DEPARTMENT_ICONS[dept.name] || LuStethoscope;
                     const doctorCount = dept.doctors ? dept.doctors.length : 0;
@@ -241,9 +242,9 @@ const Landing = () => {
                     aria-hidden="true"
                   />
                   <span>
-                    <strong className="font-semibold text-heading">
+                    <strong className="font-semibold text-heading mr-1">
                       {totalDoctors}+
-                    </strong>{" "}
+                    </strong>
                     Verified doctors
                   </span>
                 </li>
@@ -253,7 +254,7 @@ const Landing = () => {
                     aria-hidden="true"
                   />
                   <span>
-                    <strong className="font-semibold text-heading">3M+</strong>{" "}
+                    <strong className="font-semibold text-heading mr-1">3M+</strong>
                     Patient recommendations
                   </span>
                 </li>
@@ -263,7 +264,7 @@ const Landing = () => {
                     aria-hidden="true"
                   />
                   <span>
-                    <strong className="font-semibold text-heading">25M</strong>{" "}
+                    <strong className="font-semibold text-heading mr-1">25M</strong>
                     Patients/year
                   </span>
                 </li>
@@ -288,12 +289,12 @@ const Landing = () => {
               data-aos-duration="800"
               className="lg:col-span-5 flex justify-center lg:justify-end m-0"
             >
-              <div className="relative w-full max-w-sm sm:max-w-md">
-                <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl border border-body/10 bg-background aspect-[4/5] sm:aspect-[3/4]">
+              <div className="relative w-full max-w-sm sm:max-w-lg">
+                <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl border border-body/10 bg-background">
                   <img
                     src={DOCTOR_IMAGE_URL}
                     alt="Verified Healthcare Professional doctor"
-                    className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-102"
+                    className="w-full h-full object-cover object-center"
                     loading="lazy"
                   />
                 </div>

@@ -10,6 +10,7 @@ import {
   LuClock,
   LuArrowLeft,
 } from 'react-icons/lu';
+import { CONTACT_INFO } from '../constants/contactDetails';
 
 const SECTIONS = [
   {
@@ -146,30 +147,6 @@ const TermsOfService = () => {
               </div>
             );
           })}
-        </div>
-
-        {/* BOTTOM CALLOUT */}
-        <div className="mt-12 bg-primary/5 border border-primary/15 rounded-2xl p-6 sm:p-8 text-center space-y-3">
-          <h3 className="text-base sm:text-lg font-semibold text-heading">
-            Need Help or Have Inquiries?
-          </h3>
-          <p className="text-xs sm:text-sm text-body max-w-xl mx-auto">
-            Our team is available to assist you with appointment bookings, specialist inquiries, and account support.
-          </p>
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              to="/services"
-              className="inline-flex items-center justify-center text-xs sm:text-sm font-medium bg-primary text-surface px-5 py-2.5 rounded-xl hover:bg-primary/90 transition-colors shadow-xs"
-            >
-              Browse Medical Services
-            </Link>
-            <Link
-              to="/privacy-policy"
-              className="inline-flex items-center justify-center text-xs sm:text-sm font-medium bg-surface text-heading border border-body/20 px-5 py-2.5 rounded-xl hover:border-primary hover:text-primary transition-colors shadow-xs"
-            >
-              View Privacy Policy
-            </Link>
-          </div>
         </div>
       </div>
     </div>

@@ -21,10 +21,7 @@ export const getAllServices = (params = {}) => {
       });
       return response;
     } catch (err) {
-      const errorMessage =
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message;
+      const errorMessage = err.response?.data?.message || err.message;
 
       dispatch({
         type: SERVICES_FAIL,

@@ -49,7 +49,7 @@ const Card = ({
           </div>
         </div>
         {description && (
-          <p className="mt-2 text-sm text-body line-clamp-3 leading-relaxed">
+          <p className="mt-2 text-sm text-body line-clamp-3 leading-relaxed font-semibold">
             {description}
           </p>
         )}

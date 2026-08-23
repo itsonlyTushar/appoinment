@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PageHeader from "../components/ui/PageHeader";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,9 +10,9 @@ import Loader from "../components/ui/Loader";
 import Search from "../components/ui/Search";
 import Select from "../components/ui/Select";
 import Modal from "../components/ui/Modal";
-import { PiLinkFill } from "react-icons/pi";
 import { FiExternalLink } from "react-icons/fi";
 
+// OLD REPORTS OF USERS WILL BE SHOWN IN THIS 
 const Appointment = () => {
   const dispatch = useDispatch();
   const {
@@ -28,6 +28,7 @@ const Appointment = () => {
   const [selectedReport, setSelectedReport] = useState(null);
   const [isReportLoading, setIsReportLoading] = useState(true);
 
+  // HANDLE OPEN REPORT MODAL 
   const handleOpenReport = (report) => {
     setSelectedReport(report);
     const isUrl =
@@ -129,20 +130,20 @@ const Appointment = () => {
               badge={
                 booking.date
                   ? new Date(booking.date).toLocaleString([], {
-                      dateStyle: "medium",
-                      timeStyle: "short",
-                    })
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  })
                   : undefined
               }
               description={
-                booking.doctor ? `To See : ${booking.doctor}` : undefined
+                `To See : ${booking.doctor}`
               }
             >
               {booking.comments && (
                 <div className="mt-3 pt-3 border-t border-body/10">
                   <p className="text-xs font-medium text-body">
-                    <span className="font-semibold text-heading">
-                      Additional Details:{" "}
+                    <span className="font-semibold text-heading mr-1">
+                      Additional Details:
                     </span>
                     {booking.comments}
                   </p>
@@ -176,15 +177,15 @@ const Appointment = () => {
         ModalTitle="Medical Report"
         actions={
           selectedReport &&
-          (selectedReport.startsWith("http://") ||
-            selectedReport.startsWith("https://")) ? (
+            (selectedReport.startsWith("http://") ||
+              selectedReport.startsWith("https://")) ? (
             <a
               href={selectedReport}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-surface bg-primary hover:bg-primary/90 rounded-lg transition-colors"
             >
-              Open in New Tab
+              Large View
             </a>
           ) : null
         }
@@ -210,9 +211,8 @@ const Appointment = () => {
             ) : selectedReport.startsWith("http://") ||
               selectedReport.startsWith("https://") ? (
               <div
-                className={`flex items-center justify-center p-2 bg-background rounded-xl border border-body/10 ${
-                  isReportLoading ? "hidden" : "flex"
-                }`}
+                className={`flex items-center justify-center p-2 bg-background rounded-xl border border-body/10 ${isReportLoading ? "hidden" : "flex"
+                  }`}
               >
                 <img
                   src={selectedReport}
