@@ -16,6 +16,7 @@ const app = express();
 app.use((req, res, next) => {
   const origin = req.headers.origin;
 
+  // ALLOW ORIGIN TO ACCESS DB
   const allowOrigins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
@@ -48,7 +49,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// DATABASE CONNECTION 
+// DATABASE CONNECTION
 connectDB();
 
 // REGISTER RATE LIMITING MIDDLEWARE
