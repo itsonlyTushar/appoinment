@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "../components/ui/Sidebar";
 import Header from "../components/ui/Header";
+import PageLoader from "../components/ui/PageLoader";
 
 export default function PrivateLayout() {
     const [collapsed, setCollapsed] = useState(false);
@@ -34,9 +35,12 @@ export default function PrivateLayout() {
                 />
 
                 <main className="flex-1 p-4 sm:p-6 md:p-8">
-                    <Outlet />
+                    <Suspense fallback={<PageLoader />}>
+                        <Outlet />
+                    </Suspense>
                 </main>
             </div>
         </div>
     );
 }
+

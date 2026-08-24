@@ -1,12 +1,14 @@
+import { Suspense } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import logo from '../assets/logo/logo.png';
 import Footer from '../components/Footer';
+import PageLoader from '../components/ui/PageLoader';
 
 export default function PublicLayout() {
   const location = useLocation();
   const isLanding = location.pathname === '/';
-  
+
   // EXTRACT USER STATE FROM REDUX REDUCER
   const { userInfo } = useSelector((state) => state.auth);
   const token = localStorage.getItem('token');
@@ -43,7 +45,9 @@ export default function PublicLayout() {
 
       {/* PAGE CONTENT */}
       <main className={`flex-grow ${isLanding ? 'pt-0' : 'pt-16'}`}>
-        <Outlet />
+        <Suspense fallback={<PageLoader />}>
+          <Outlet />
+        </Suspense>
       </main>
 
       {/* PUBLIC FOOTER */}
@@ -51,3 +55,4 @@ export default function PublicLayout() {
     </div>
   );
 }
+
