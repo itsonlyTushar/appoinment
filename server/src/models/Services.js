@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// SERVICES SCHEMA TO MAINTAIN CONSISTEN TYPES ACROSS ALL INTERACTIONS WITH DB
 const serviceSchema = new mongoose.Schema(
   {
     id: {

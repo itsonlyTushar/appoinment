@@ -1,8 +1,13 @@
 import express from "express";
-import mongoose from "mongoose";
+import connectDB from "./src/config/db.js";
 import authRoutes from "./src/routes/auth.routes.js";
 import bookingRoutes from "./src/routes/booking.routes.js";
 import serviceRoutes from "./src/routes/service.routes.js";
+import { setupSwagger } from "./src/config/swagger.js";
+import {
+  generalLimiter,
+  authLimiter,
+} from "./src/middlewares/rateLimit.middleware.js";
 
 // BACKEND INITIALIZATION
 const app = express();
@@ -43,14 +48,18 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => console.log("MongoDB connected!"))
-  .catch((err) => console.log("Error in the MongoDB connection", err));
+// DATABASE CONNECTION 
+connectDB();
+
+// REGISTER RATE LIMITING MIDDLEWARE
+app.use("/api", generalLimiter);
 
 // USING THE ROUTES THATS CREATED IN ROUTES FOLDERS
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", authLimiter, authRoutes);
 app.use("/api/booking", bookingRoutes);
 app.use("/api/services", serviceRoutes);
+
+// SETUP SWAGGER API DOCUMENTATION
+setupSwagger(app);
 
 export default app;

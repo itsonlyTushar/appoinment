@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// BOOKING SCHEMA TO MAINTAIN CONSISTEN TYPES ACROSS ALL INTERACTIONS WITH DB
 const bookingSchema = new mongoose.Schema(
   {
     user: {
