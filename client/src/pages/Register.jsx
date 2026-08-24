@@ -38,7 +38,7 @@ const Register = () => {
         }
       }
       toast.success(res?.message || 'Account created successfully!');
-      navigate('/book');
+      navigate('/dashboard');
     } catch (error) {
       const errorMessage =
         error?.response?.data?.message || error?.message;

@@ -21,10 +21,10 @@ export const useGoogleAuth = () => {
         localStorage.setItem("user", JSON.stringify(res.user));
       }
 
-      // FIRE TOAST AFTER SUCCESS NAVIGATE USER TO BOOKING APPOINTMENT PAGE
+      // FIRE TOAST AFTER SUCCESS NAVIGATE USER TO DASHBOARD PAGE
       toast.success(res?.message);
 
-      navigate("/book");
+      navigate("/dashboard");
     } catch (err) {
       const errorMessage = err?.response?.data?.message || err?.message;
       toast.error(errorMessage);

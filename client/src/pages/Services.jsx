@@ -51,22 +51,22 @@ const Services = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      <div className='my-6'>
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <header className="my-6">
         <PageHeader
           title={"Services We Offer"}
           description={"Explore our wide range of specialized healthcare treatments, diagnostic facilities, and medical specialties."}
         />
-      </div>
+      </header>
 
       {/* SHOW SEARCH BAR FILTER */}
-      <div className="mb-8">
+      <search className="mb-8">
         <Search
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search services..."
         />
-      </div>
+      </search>
 
       {/* SERVICES CONTENT AREA WITH FIXED MIN-HEIGHT TO PREVENT LAYOUT SHIFT */}
       <div className="min-h-[480px]">
@@ -97,15 +97,15 @@ const Services = () => {
 
       {/* PAGINATION CONTROLS */}
       {!error && (
-        <div className="mt-8">
+        <nav aria-label="Pagination" className="mt-8">
           <Pagination
             currentPage={page}
             totalPages={totalPages || 1}
             onPageChange={handlePageChange}
           />
-        </div>
+        </nav>
       )}
-    </div>
+    </section>
   );
 };
 

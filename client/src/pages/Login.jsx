@@ -52,7 +52,7 @@ const Login = () => {
         }
       }
       toast.success(res?.message || 'Logged in successfully!');
-      navigate('/book');
+      navigate('/dashboard');
     } catch (err) {
       const errorMessage =
         err?.response?.data?.message || err?.message;

@@ -106,24 +106,26 @@ const Profile = () => {
 
     // DEFAULT IMAGE URL OR EXISTING URL 
     const avatarUrl = previewUrl || profile.profilePicture ||
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&auto=format&fit=crop&q=60";
+        "https://res.cloudinary.com/dartdvch1/image/upload/v1787560939/profile-picture-placeholder-avatar-silhouette-gray-tones-icon-colored-shapes-gradient_1076610-40164_iitrhd.avif";
 
     return (
-        <>
-            <PageHeader
-                title="Profile Account"
-                description="Manage and update your account details here."
-            />
+        <section className="space-y-6">
+            <header>
+                <PageHeader
+                    title="Profile Account"
+                    description="Manage and update your account details here."
+                />
+            </header>
 
             {fetching ? (
                 <div className="bg-surface mt-5 py-16 rounded-2xl border border-body/10 shadow-sm flex items-center justify-center">
                     <Loader title="Loading Profile..." />
                 </div>
             ) : (
-                <section className="bg-surface mt-5 pt-8 px-6 pb-8 rounded-2xl border border-body/10 shadow-sm">
+                <div className="bg-surface mt-5 pt-8 px-6 pb-8 rounded-2xl border border-body/10 shadow-sm">
                     {/* SECTION TO SHOW TO PFP  */}
-                    <section className="flex flex-col sm:flex-row gap-6 items-center">
-                        <div className="w-32 h-32 aspect-square rounded-full overflow-hidden border-2 border-primary/20 shadow-sm shrink-0">
+                    <section aria-label="Profile photo" className="flex flex-col sm:flex-row gap-6 items-center">
+                        <figure className="w-32 h-32 aspect-square rounded-full overflow-hidden border-2 border-primary/20 shadow-sm shrink-0 m-0">
                             <img
                                 className="w-full h-full object-cover rounded-full"
                                 alt="Profile avatar"
@@ -133,7 +135,7 @@ const Profile = () => {
                                     e.currentTarget.src = "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&auto=format&fit=crop&q=60";
                                 }}
                             />
-                        </div>
+                        </figure>
                         {/* UTLIZING CUSTOMER CHOOSE COMPONENT  */}
                         <div className="w-full max-w-md">
                             <ChooseFile
@@ -235,7 +237,7 @@ const Profile = () => {
                             </Button>
                         </div>
                     </div>
-                </section>
+                </div>
             )}
 
             {/* LOGOUT CONFIRMATION MODAL */}
@@ -243,7 +245,7 @@ const Profile = () => {
                 isOpen={isLogoutModalOpen}
                 onClose={() => setIsLogoutModalOpen(false)}
             />
-        </>
+        </section>
     );
 };
 

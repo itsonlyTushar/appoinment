@@ -184,11 +184,11 @@ const Landing = () => {
           </header>
 
           {/* 3-COLUMN FEATURE CARDS */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 list-none p-0 m-0">
             {PRIVACY_FEATURES.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <article
+                <li
                   key={index}
                   className="group relative rounded-2xl bg-surface p-7 sm:p-8 border border-body/10 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col items-start text-left"
                 >
@@ -206,10 +206,10 @@ const Landing = () => {
                   <p className="text-sm text-body leading-relaxed">
                     {feature.description}
                   </p>
-                </article>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
       </section>
 

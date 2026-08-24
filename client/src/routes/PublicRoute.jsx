@@ -9,7 +9,7 @@ export default function PublicRoute() {
   const isAuthenticated = Boolean(userInfo || token);
 
   if (isAuthenticated) {
-    return <Navigate to="/book" replace />;
+    return <Navigate to="/dashboard" replace />;
   } else {
     return <Outlet />;
   }

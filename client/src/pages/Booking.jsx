@@ -90,13 +90,13 @@ const Booking = () => {
   };
 
   return (
-    <div className="w-full space-y-6">
-      <section className="w-full">
+    <section className="w-full space-y-6">
+      <header className="w-full">
         <PageHeader
           title={"Book Appointment"}
           description={"Schedule an appointment for your next check-up."}
         />
-      </section>
+      </header>
 
       {/* BOOKING APPOINTMENT FORM  */}
       <form
@@ -181,15 +181,13 @@ const Booking = () => {
                 />
 
                 {/* AVAILABLE TIME SLOTS */}
-                <div className="space-y-2 pt-1">
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1.5 text-xs font-semibold text-heading uppercase tracking-wider">
-                      <PiClock className="text-sm text-primary" />
-                      Time Slot*
-                    </span>
-                  </div>
+                <fieldset className="space-y-2 pt-1 border-0 p-0 m-0">
+                  <legend className="flex items-center gap-1.5 text-xs font-semibold text-heading uppercase tracking-wider pb-1">
+                    <PiClock className="text-sm text-primary" />
+                    Time Slot*
+                  </legend>
 
-                  <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                  <div role="group" aria-label="Available time slots" className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                     {timeSlots.map((slot) => {
                       const isSelected = selectedSlot === slot.value;
                       return (
@@ -225,7 +223,7 @@ const Booking = () => {
                       {errors.slot.message}
                     </p>
                   )}
-                </div>
+                </fieldset>
               </div>
             ) : (
               <Input
@@ -274,7 +272,7 @@ const Booking = () => {
 
       {/* IMPORTANT BOOKING INSTRUCTIONS & GUIDELINES */}
       <BookingInstructions />
-    </div>
+    </section>
   );
 };
 

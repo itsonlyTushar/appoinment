@@ -81,7 +81,7 @@ const Appointment = () => {
       />
 
       {/* SEARCH BAR FILTER */}
-      <div className="mb-6 flex items-center gap-3 w-full">
+      <search className="mb-6 flex items-center gap-3 w-full">
         <div className="flex-1 min-w-0">
           <Search
             value={search}
@@ -99,16 +99,16 @@ const Appointment = () => {
           onChange={setSelectedYear}
           placeholder="Select Year"
         />
-      </div>
+      </search>
 
       {/* SHOW LOADER TILL BOOKINGS FETCHED  */}
       {loading && <Loader title="Loading Appointments..." />}
 
       {/* SHOW EMPTY STATE IF BOOKINGS ARE NOT MADE  */}
       {!loading && bookingList.length === 0 && (
-        <div className="text-center py-12 bg-surface rounded-2xl border border-body/10 text-body">
+        <p className="text-center py-12 bg-surface rounded-2xl border border-body/10 text-body">
           No appointments found. Book your first appointment to see it here.
-        </div>
+        </p>
       )}
 
       {/* SHOW EMPTY SEARCH RESULTS */}
@@ -116,13 +116,13 @@ const Appointment = () => {
         !error &&
         bookingList.length > 0 &&
         filteredBookings.length === 0 && (
-          <div className="text-center py-12 bg-surface rounded-2xl border border-body/10 text-body">
+          <p className="text-center py-12 bg-surface rounded-2xl border border-body/10 text-body">
             No appointments found matching.
-          </div>
+          </p>
         )}
 
       {!loading && !error && filteredBookings.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredBookings.map((booking) => (
             <Card
               key={booking._id || booking.id}
@@ -140,14 +140,14 @@ const Appointment = () => {
               }
             >
               {booking.comments && (
-                <div className="mt-3 pt-3 border-t border-body/10">
+                <section className="mt-3 pt-3 border-t border-body/10">
                   <p className="text-xs font-medium text-body">
                     <span className="font-semibold text-heading mr-1">
                       Additional Details:
                     </span>
                     {booking.comments}
                   </p>
-                </div>
+                </section>
               )}
 
               {booking.reports && booking.reports.length > 0 && (
@@ -164,7 +164,7 @@ const Appointment = () => {
               )}
             </Card>
           ))}
-        </div>
+        </section>
       )}
 
       {/* MEDICAL REPORT PREVIEW MODAL */}
@@ -191,13 +191,13 @@ const Appointment = () => {
         }
       >
         {selectedReport && (
-          <div className="space-y-4">
+          <section className="space-y-4">
             {isReportLoading && (
               <Loader title="Loading report..." className="py-12" />
             )}
 
             {selectedReport.toLowerCase().includes(".pdf") ? (
-              <div
+              <figure
                 className={`space-y-3 ${isReportLoading ? "hidden" : "block"}`}
               >
                 <iframe
@@ -207,10 +207,10 @@ const Appointment = () => {
                   onError={() => setIsReportLoading(false)}
                   className="w-full h-80 rounded-xl border border-body/10 bg-white"
                 />
-              </div>
+              </figure>
             ) : selectedReport.startsWith("http://") ||
               selectedReport.startsWith("https://") ? (
-              <div
+              <figure
                 className={`flex items-center justify-center p-2 bg-background rounded-xl border border-body/10 ${isReportLoading ? "hidden" : "flex"
                   }`}
               >
@@ -221,15 +221,13 @@ const Appointment = () => {
                   onError={() => setIsReportLoading(false)}
                   className="max-h-80 w-full object-contain rounded-lg"
                 />
-              </div>
+              </figure>
             ) : (
-              <div className="p-4 bg-background rounded-xl border border-body/10 text-center">
-                <p className="text-sm font-medium text-heading">
-                  {selectedReport}
-                </p>
-              </div>
+              <p className="p-4 bg-background rounded-xl border border-body/10 text-center text-sm font-medium text-heading">
+                {selectedReport}
+              </p>
             )}
-          </div>
+          </section>
         )}
       </Modal>
     </section>

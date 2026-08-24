@@ -11,6 +11,7 @@ import Booking from '../pages/Booking';
 import Dashboard from '../pages/Dashboard';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import TermsOfService from '../pages/TermsOfService';
+import NotFound from '../pages/NotFound';
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
 
@@ -29,6 +30,8 @@ export default function AppRoutes() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Route>
+        {/* 404 NOT FOUND CATCH-ALL */}
+        <Route path="*" element={<NotFound />} />
       </Route>
 
       {/* PRIVATE ROUTES PROTECTED BY PROTECTED ROUTE */}
