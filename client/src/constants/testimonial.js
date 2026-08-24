@@ -1,13 +1,9 @@
-import philImg from "../assets/testimonials/phil.jpg";
-import claireImg from "../assets/testimonials/claire.jpg";
-import gloriaImg from "../assets/testimonials/gloria.jpg";
-import mitchImg from "../assets/testimonials/mitch.jpg";
-
 export const carouselData = [
   {
     id: 1,
     name: "Phil Dunphy",
-    image: philImg,
+    image:
+      "https://res.cloudinary.com/dartdvch1/image/upload/v1787566440/phil_lmrvyj.jpg",
     role: "Verified Patient",
     quote:
       "Booking an appointment used to take endless phone calls, but HealthEase made it seamless in under 30 seconds! Finding the right doctor slot and getting instant confirmation was absolute magic.",
@@ -15,7 +11,8 @@ export const carouselData = [
   {
     id: 2,
     name: "Claire Dunphy",
-    image: claireImg,
+    image:
+      "https://res.cloudinary.com/dartdvch1/image/upload/v1787566440/claire_qdxkbi.jpg",
     role: "Family Caregiver",
     quote:
       "Coordinating medical appointments for the entire family used to be chaotic. The doctor consultation was right on time, extremely professional, and the prescription was sent straight to my profile.",
@@ -23,7 +20,8 @@ export const carouselData = [
   {
     id: 3,
     name: "Gloria Delgado",
-    image: gloriaImg,
+    image:
+      "https://res.cloudinary.com/dartdvch1/image/upload/v1787566440/gloria_k2yqjz.jpg",
     role: "Verified Patient",
     quote:
       "The service usage and diagnostic test booking are phenomenal! My medical reports were uploaded securely within hours and I could view them privately without any hassle.",
@@ -31,7 +29,8 @@ export const carouselData = [
   {
     id: 4,
     name: "Mitchell Pritchett",
-    image: mitchImg,
+    image:
+      "https://res.cloudinary.com/dartdvch1/image/upload/v1787566440/mitch_aqvanl.jpg",
     role: "Verified Patient",
     quote:
       "As someone who takes privacy and organization very seriously, I am thoroughly impressed. Transparent consultation details, top verified doctors, and complete data confidentiality.",
