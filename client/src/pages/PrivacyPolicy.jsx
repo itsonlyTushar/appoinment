@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
   return (
     <div className="w-full bg-background min-h-screen py-10 sm:py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* TOP BREADCRUMB / BACK LINK */}
+        {/* TOP BREADCRUMB */}
         <nav aria-label="Breadcrumb" className="mb-6">
           <Link
             to="/"
@@ -41,6 +41,7 @@ const PrivacyPolicy = () => {
 
         {/* DETAILED CONTENT SECTIONS */}
         <div className="space-y-6 sm:space-y-8">
+          {/* LOAD PRIVACY DETAILS FROM CONSTANT FILE  */}
           {PRIVACY_POLICY_SECTIONS.map((section) => {
             const SectionIcon = section.icon;
             return (

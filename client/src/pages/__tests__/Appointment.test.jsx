@@ -1,12 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
 import Appointment from '../Appointment';
 import { bookingReducer } from '../../features/reducers/bookingReducers';
 import * as bookingActions from '../../features/actions/bookingActions';
+import { createTestStore, renderWithProviders } from '../../test/testUtils';
 
 const mockBookings = [
   {
@@ -32,22 +30,8 @@ const mockBookings = [
   },
 ];
 
-const createMockStore = (initialState = { booking: { loading: false, error: null, bookings: mockBookings } }) => {
-  return configureStore({
-    reducer: {
-      booking: bookingReducer,
-    },
-    preloadedState: initialState,
-  });
-};
-
-const renderWithProviders = (ui, store = createMockStore()) => {
-  return render(
-    <Provider store={store}>
-      <BrowserRouter>{ui}</BrowserRouter>
-    </Provider>
-  );
-};
+const bookingReducerMap = { booking: bookingReducer };
+const defaultBookingState = { booking: { loading: false, error: null, bookings: mockBookings } };
 
 describe('Appointment Page Unit Tests', () => {
   beforeEach(() => {
@@ -59,7 +43,7 @@ describe('Appointment Page Unit Tests', () => {
   });
 
   it('renders page header, search input, and all bookings initially', () => {
-    renderWithProviders(<Appointment />);
+    renderWithProviders(<Appointment />, { reducer: bookingReducerMap, preloadedState: defaultBookingState });
 
     // Header
     expect(screen.getByRole('heading', { name: /previous appointments/i })).toBeInTheDocument();
@@ -76,7 +60,7 @@ describe('Appointment Page Unit Tests', () => {
 
   it('filters appointments by department when search query is typed', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<Appointment />);
+    renderWithProviders(<Appointment />, { reducer: bookingReducerMap, preloadedState: defaultBookingState });
 
     const searchInput = screen.getByPlaceholderText(/search appointments/i);
     await user.type(searchInput, 'Cardio');
@@ -88,7 +72,7 @@ describe('Appointment Page Unit Tests', () => {
 
   it('filters appointments by comments', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<Appointment />);
+    renderWithProviders(<Appointment />, { reducer: bookingReducerMap, preloadedState: defaultBookingState });
 
     const searchInput = screen.getByPlaceholderText(/search appointments/i);
     await user.type(searchInput, 'vaccination');
@@ -100,7 +84,7 @@ describe('Appointment Page Unit Tests', () => {
 
   it('filters appointments by report tag', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<Appointment />);
+    renderWithProviders(<Appointment />, { reducer: bookingReducerMap, preloadedState: defaultBookingState });
 
     const searchInput = screen.getByPlaceholderText(/search appointments/i);
     await user.type(searchInput, 'ecg_report');
@@ -111,7 +95,7 @@ describe('Appointment Page Unit Tests', () => {
 
   it('shows no matches message when search yields zero results', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<Appointment />);
+    renderWithProviders(<Appointment />, { reducer: bookingReducerMap, preloadedState: defaultBookingState });
 
     const searchInput = screen.getByPlaceholderText(/search appointments/i);
     await user.type(searchInput, 'NonExistentQuery');
@@ -121,10 +105,10 @@ describe('Appointment Page Unit Tests', () => {
   });
 
   it('shows empty message when bookings array is empty', () => {
-    const emptyStore = createMockStore({
+    const emptyStore = createTestStore(bookingReducerMap, {
       booking: { loading: false, error: null, bookings: [] },
     });
-    renderWithProviders(<Appointment />, emptyStore);
+    renderWithProviders(<Appointment />, { reducer: bookingReducerMap, store: emptyStore });
 
     expect(screen.getByText(/no appointments found\. book your first appointment/i)).toBeInTheDocument();
   });
