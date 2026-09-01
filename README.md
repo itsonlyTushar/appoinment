@@ -8,31 +8,27 @@ HealthEase is a full-stack healthcare appointment booking application that allow
 
 ### Frontend
 
-| Technology | Purpose |
-| :--- | :--- |
-| **React 19** | Core UI library |
-| **Vite** | Frontend build tool and development server |
-| **Redux Toolkit** | Centralized global state management |
-| **React Router DOM v7** | Client-side routing and layout management |
-| **Tailwind CSS v4** | Utility-first styling and custom design system |
-| **Axios** | HTTP client for consuming REST APIs |
-| **React Hook Form** | Form handling and validation |
-| **AOS (Animate on Scroll)** | Scroll-triggered micro-animations |
-| **React Toastify** | User feedback notifications |
+- **React 19**
+- **Vite**
+- **Redux Toolkit**
+- **React Router DOM v7**
+- **Tailwind CSS v4**
+- **Axios**
+- **React Hook Form**
+- **AOS (Animate on Scroll)**
+- **React Toastify**
 
 ### Backend
 
-| Technology | Purpose |
-| :--- | :--- |
-| **Node.js** | JavaScript runtime environment |
-| **Express.js (v5)** | REST API server and routing framework |
-| **MongoDB & Mongoose** | NoSQL database and schema modeling (ODM) |
-| **JSON Web Token (JWT)** | Token-based stateless authentication |
-| **Bcrypt** | Password hashing and security |
-| **Google Auth Library** | Google OAuth 2.0 integration |
-| **Express Rate Limit** | Rate limiting to prevent brute-force attacks and abuse |
-| **Multer & Cloudinary** | Profile picture and asset upload handling |
-| **Swagger UI & swagger-jsdoc** | OpenAPI specification and interactive API documentation |
+- **Node.js**
+- **Express.js (v5)**
+- **MongoDB & Mongoose**
+- **JSON Web Token (JWT)**
+- **Bcrypt**
+- **Google Auth Library**
+- **Express Rate Limit**
+- **Multer & Cloudinary**
+- **Swagger UI & swagger-jsdoc**
 
 ---
 
