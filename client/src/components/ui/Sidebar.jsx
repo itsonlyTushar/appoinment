@@ -8,7 +8,7 @@ import logo from '../../assets/logo/logo.png';
 import collapsedLogo from '../../assets/logo/collapsed.png';
 
 const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
-    const [isModalOpen, setisModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
         <aside
@@ -73,7 +73,7 @@ const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
             <div className='p-3'>
                 <button
                     type="button"
-                    onClick={() => setisModalOpen(true)}
+                    onClick={() => setIsModalOpen(true)}
                     title={collapsed ? "Logout" : undefined}
                     aria-label="Logout"
                     className={`flex w-full items-center gap-3 rounded-xl px-2.5 py-1.5 text-sm font-medium min-h-[44px] text-danger/80 hover:text-danger hover:bg-danger/10 transition-colors duration-150 cursor-pointer ${collapsed ? 'md:justify-center md:px-0' : ''
@@ -86,7 +86,7 @@ const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
                 {/* MODAL WHEN CLICK LOGOUT  */}
                 <LogoutModal
                     isOpen={isModalOpen}
-                    onClose={() => setisModalOpen(false)}
+                    onClose={() => setIsModalOpen(false)}
                     onAfterLogout={() => setMobileOpen && setMobileOpen(false)}
                 />
             </div>

@@ -8,6 +8,7 @@
   --color-body: #7F919C;
   --color-background: #F4F7F9;
   --color-surface: #FFFFFF;
+  --color-danger: #EF4444;
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-heading: 'Sora', system-ui, sans-serif;
 }
@@ -56,7 +57,7 @@
 .three-body {
  --uib-size: 35px;
  --uib-speed: 0.8s;
- --uib-color: #5D3FD3;
+ --uib-color: var(--color-primary, #4F6BFE);
  position: relative;
  display: inline-block;
  height: var(--uib-size);

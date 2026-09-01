@@ -59,8 +59,8 @@ const Dashboard = () => {
         <div className='w-full space-y-6'>
             <section className="w-full">
                 <PageHeader
-                    title={"Dashboard"}
-                    description={"Check your booking summarry and upcoming apointments."}
+                    title="Dashboard"
+                    description="Check your booking summary and upcoming appointments."
                 />
             </section>
 
@@ -171,7 +171,7 @@ const Dashboard = () => {
                                 <p className='text-sm text-body mb-3'>No bookings found yet.</p>
                                 <Link
                                     to="/book"
-                                    className='inline-flex items-center justify-center px-4 py-2 text-xs font-semibold text-white bg-primary rounded-xl hover:bg-primary/90 transition-colors'
+                                    className='inline-flex items-center justify-center px-4 py-2 text-xs font-semibold text-surface bg-primary rounded-xl hover:bg-primary/90 transition-colors'
                                 >
                                     Book First Appointment
                                 </Link>
@@ -197,7 +197,7 @@ const Dashboard = () => {
                                                     month: 'short',
                                                     day: 'numeric',
                                                 })
-                                                : ' '}
+                                                : ''}
                                         </span>
                                     </div>
                                 ))}
