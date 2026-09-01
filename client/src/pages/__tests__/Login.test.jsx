@@ -1,6 +1,7 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { toast } from 'react-toastify';
 import Login from '../Login';
 import { authReducer } from '../../features/reducers/authReducers';
 import * as authActions from '../../features/actions/authActions';
@@ -14,7 +15,7 @@ const renderLogin = () => renderWithProviders(<Login />, {
   preloadedState: defaultAuthState,
 });
 
-describe('Login page basic tests', () => {
+describe('Login page tests', () => {
   beforeEach(() => {
     localStorage.clear();
     vi.restoreAllMocks();
@@ -45,6 +46,39 @@ describe('Login page basic tests', () => {
     expect(submitButton).toBeEnabled();
     await user.click(submitButton);
     expect(submitButton).toBeEnabled();
+  });
+
+  // TEST VALIDATION ERRORS ON EMPTY SUBMISSION
+  it('shows required error messages when submitted with empty fields', async () => {
+    const user = userEvent.setup();
+    const loginAction = vi.spyOn(authActions, 'userLogin');
+    renderLogin();
+
+    await user.click(screen.getByRole('button', { name: /sign in/i }));
+
+    expect(await screen.findByText('Email is required')).toBeInTheDocument();
+    expect(await screen.findByText('Password is required')).toBeInTheDocument();
+    expect(loginAction).not.toHaveBeenCalled();
+  });
+
+  // TEST FAILED LOGIN SHOWS ERROR TOAST
+  it('displays error toast message on login failure', async () => {
+    const user = userEvent.setup();
+    const toastError = vi.spyOn(toast, 'error').mockImplementation(() => {});
+    vi.spyOn(authActions, 'userLogin').mockImplementation(() => {
+      return async () => {
+        const error = new Error('Invalid email or password');
+        error.response = { data: { message: 'Invalid email or password' } };
+        throw error;
+      };
+    });
+    renderLogin();
+
+    await user.type(screen.getByPlaceholderText('john.doe@example.com'), 'wrong@example.com');
+    await user.type(screen.getByPlaceholderText('••••••••'), 'wrongpass');
+    await user.click(screen.getByRole('button', { name: /sign in/i }));
+
+    await waitFor(() => expect(toastError).toHaveBeenCalledWith('Invalid email or password'));
   });
 
   // TEST VALID LOGIN FLOW AND STORE RETURNED LOGIN DATA

@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { toast } from 'react-toastify';
 import Register from '../Register';
 import { authReducer } from '../../features/reducers/authReducers';
 import * as authActions from '../../features/actions/authActions';
@@ -14,7 +15,7 @@ const renderRegister = () => renderWithProviders(<Register />, {
   preloadedState: defaultAuthState,
 });
 
-describe('Register page basic tests', () => {
+describe('Register page tests', () => {
   // CHECK IF REGISTER PAGE MOUNTS PROPERLY ON LOAD OR NOT
   it('mounts the register page', () => {
     renderRegister();
@@ -41,6 +42,65 @@ describe('Register page basic tests', () => {
     expect(submitButton).toBeEnabled();
     await user.click(submitButton);
     expect(submitButton).toBeEnabled();
+  });
+
+  // TEST REQUIRED VALIDATION ERRORS ON EMPTY SUBMISSION
+  it('shows required error messages when submitted with empty fields', async () => {
+    const user = userEvent.setup();
+    const registrationAction = vi.spyOn(authActions, 'userRegistration');
+    renderRegister();
+
+    await user.click(screen.getByRole('button', { name: /create account/i }));
+
+    expect(await screen.findByText('Full name is required')).toBeInTheDocument();
+    expect(await screen.findByText('Contact is required')).toBeInTheDocument();
+    expect(await screen.findByText('Email is required')).toBeInTheDocument();
+    expect(await screen.findByText('Password is required')).toBeInTheDocument();
+    expect(registrationAction).not.toHaveBeenCalled();
+  });
+
+  // TEST PASSWORD MISMATCH VALIDATION
+  it('displays error message when passwords do not match', async () => {
+    const user = userEvent.setup();
+    const registrationAction = vi.spyOn(authActions, 'userRegistration');
+    renderRegister();
+
+    await user.type(screen.getByPlaceholderText('Tushar Soni'), 'John Doe');
+    await user.type(screen.getByPlaceholderText('+91 9327584894'), '9876543210');
+    await user.type(screen.getByPlaceholderText('admin11@example.com'), 'john@example.com');
+    const passwordFields = screen.getAllByPlaceholderText('••••••••');
+    await user.type(passwordFields[0], 'password123');
+    await user.type(passwordFields[1], 'differentPassword');
+    await user.click(screen.getByRole('button', { name: /create account/i }));
+
+    expect(await screen.findByText('Passwords do not match')).toBeInTheDocument();
+    expect(registrationAction).not.toHaveBeenCalled();
+  });
+
+  // TEST FAILED REGISTRATION SHOWS ERROR TOAST
+  it('displays error toast message on registration failure', async () => {
+    const user = userEvent.setup();
+    const toastError = vi.spyOn(toast, 'error').mockImplementation(() => {});
+    vi.spyOn(authActions, 'userRegistration').mockImplementation(() => {
+      return async () => {
+        const error = new Error('User already exists with this email');
+        error.response = { data: { message: 'User already exists with this email' } };
+        throw error;
+      };
+    });
+    renderRegister();
+
+    await user.type(screen.getByPlaceholderText('Tushar Soni'), 'John Doe');
+    await user.type(screen.getByPlaceholderText('+91 9327584894'), '9876543210');
+    await user.type(screen.getByPlaceholderText('admin11@example.com'), 'existing@example.com');
+    const passwordFields = screen.getAllByPlaceholderText('••••••••');
+    await user.type(passwordFields[0], 'password123');
+    await user.type(passwordFields[1], 'password123');
+    await user.click(screen.getByRole('button', { name: /create account/i }));
+
+    await waitFor(() =>
+      expect(toastError).toHaveBeenCalledWith('User already exists with this email')
+    );
   });
 
   // TEST VALID REGISTRATION FLOW AND STORE RETURNED LOGIN DATA

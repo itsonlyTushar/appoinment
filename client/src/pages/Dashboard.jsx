@@ -37,6 +37,7 @@ const Dashboard = () => {
     // FIND THE MAXIMUM BOOKED DEPARTMENT - PRIMARY CONCERN
     const primaryConcern = (() => {
         if (bookingList.length === 0) return 'None';
+        // REDUCE AND GET THE COUNT OF MOST BOOKED DEPT 
         const deptCounts = bookingList.reduce((acc, b) => {
             if (b.department) {
                 acc[b.department] = (acc[b.department] || 0) + 1;
@@ -103,24 +104,26 @@ const Dashboard = () => {
 
             {/* UPCOMING BOOKING DETAILS  */}
             <section>
-                <div className='bg-surface w-full rounded-2xl border border-body/10 p-5 shadow-xs'>
+                <div className='bg-surface w-full rounded-2xl border border-body/10 p-5 sm:p-6 shadow-xs'>
 
-                    <h3 className='text-xl sm:text-2xl font-bold font-heading text-heading flex items-center gap-2'>
-                        <LiaBookMedicalSolid className='text-primary text-2xl' />
-                        Upcoming Booking
+                    <h3 className='text-xl sm:text-2xl font-bold font-heading text-heading flex items-center gap-2.5'>
+                        <span className='w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0'>
+                            <LiaBookMedicalSolid className='text-xl' />
+                        </span>
+                        <span>Upcoming Booking</span>
                     </h3>
 
 
                     {nextBooking ? (
-                        <div className='space-y-1.5 mt-4'>
-                            <div className='px-3'>
+                        <div className='space-y-1.5 mt-5 border-l-2 border-primary/20 pl-4 sm:pl-5'>
+                            <div>
                                 {/* SHOW DOCTOR NAME AND DEPARTMENT  */}
                                 <h4 className='text-lg sm:text-xl font-semibold text-heading'>
                                     {nextBooking.doctor}, {nextBooking.department}
                                 </h4>
-                                <p className='text-xs sm:text-sm font-medium text-body'>
-                                    <span className='text-xs font-medium px-2 py-1 rounded-lg bg-primary/10 text-primary shrink-0 mr-1'>Date : </span>
-                                    <span className='text-heading '>
+                                <p className='flex flex-wrap items-center gap-1.5 text-xs sm:text-sm font-medium text-body'>
+                                    <span className='text-xs font-medium px-2 py-1 rounded-lg bg-primary/10 text-primary shrink-0'>Date</span>
+                                    <span className='text-heading'>
                                         {nextBooking.date
                                             ? new Date(nextBooking.date).toLocaleString([], {
                                                 dateStyle: 'medium',

@@ -42,6 +42,7 @@ describe('Appointment Page Unit Tests', () => {
     });
   });
 
+  // CHECK IF APPOINTMENT PAGE MOUNTS PROPERLY ON LOAD OR NOT
   it('renders page header, search input, and all bookings initially', () => {
     renderWithProviders(<Appointment />, { reducer: bookingReducerMap, preloadedState: defaultBookingState });
 
@@ -58,6 +59,7 @@ describe('Appointment Page Unit Tests', () => {
     expect(screen.getByText('Pediatrics')).toBeInTheDocument();
   });
 
+  // TEST FILTER APPOINTMENTS BY DEPARTMENT
   it('filters appointments by department when search query is typed', async () => {
     const user = userEvent.setup();
     renderWithProviders(<Appointment />, { reducer: bookingReducerMap, preloadedState: defaultBookingState });
@@ -70,6 +72,7 @@ describe('Appointment Page Unit Tests', () => {
     expect(screen.queryByText('Pediatrics')).not.toBeInTheDocument();
   });
 
+  // TEST FILTER APPOINTMENTS BY COMMENTS
   it('filters appointments by comments', async () => {
     const user = userEvent.setup();
     renderWithProviders(<Appointment />, { reducer: bookingReducerMap, preloadedState: defaultBookingState });
@@ -82,6 +85,7 @@ describe('Appointment Page Unit Tests', () => {
     expect(screen.queryByText('Cardiology')).not.toBeInTheDocument();
   });
 
+  // TEST FILTER APPOINTMENTS BY REPORT TAG
   it('filters appointments by report tag', async () => {
     const user = userEvent.setup();
     renderWithProviders(<Appointment />, { reducer: bookingReducerMap, preloadedState: defaultBookingState });
@@ -93,6 +97,7 @@ describe('Appointment Page Unit Tests', () => {
     expect(screen.queryByText('Dermatology')).not.toBeInTheDocument();
   });
 
+  // TEST NO MATCHES MESSAGE WHEN SEARCH YIELDS ZERO RESULTS
   it('shows no matches message when search yields zero results', async () => {
     const user = userEvent.setup();
     renderWithProviders(<Appointment />, { reducer: bookingReducerMap, preloadedState: defaultBookingState });
@@ -104,6 +109,7 @@ describe('Appointment Page Unit Tests', () => {
     expect(screen.queryByText('Cardiology')).not.toBeInTheDocument();
   });
 
+  // TEST EMPTY MESSAGE WHEN NO PREVIOUS APPOINTMENTS EXIST
   it('shows empty message when bookings array is empty', () => {
     const emptyStore = createTestStore(bookingReducerMap, {
       booking: { loading: false, error: null, bookings: [] },

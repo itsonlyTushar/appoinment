@@ -26,6 +26,7 @@ describe("Profile page integration tests", () => {
         });
     });
 
+    // CHECK IF PROFILE PAGE MOUNTS AND LOADS USER DETAILS
     it("loads and displays the current user profile", async () => {
         renderWithProviders(<Profile />, { reducer: authReducerMap, preloadedState: defaultAuthState });
 
@@ -36,6 +37,7 @@ describe("Profile page integration tests", () => {
         expect(JSON.parse(localStorage.getItem("user"))).toEqual(initialUser);
     });
 
+    // TEST SAVING EDITED PROFILE DETAILS AND PROFILE IMAGE
     it("saves edited details and selected image through the update thunk", async () => {
         const user = userEvent.setup();
         const updatedUser = { ...initialUser, name: "Janet Doe", contactNumber: "9123456780" };
@@ -71,6 +73,7 @@ describe("Profile page integration tests", () => {
         expect(JSON.parse(localStorage.getItem("user"))).toEqual(updatedUser);
     });
 
+    // TEST CANCEL EDITING RESTORES ORIGINAL PROFILE VALUES
     it("restores saved values when editing is cancelled", async () => {
         const user = userEvent.setup();
         localStorage.setItem("user", JSON.stringify(initialUser));
@@ -86,6 +89,7 @@ describe("Profile page integration tests", () => {
         expect(screen.queryByDisplayValue("Unsaved Name")).not.toBeInTheDocument();
     });
 
+    // TEST USER LOGOUT FLOW WITH CONFIRMATION MODAL
     it("logs out only after confirmation", async () => {
         const user = userEvent.setup();
         localStorage.setItem("token", "token");
