@@ -4,7 +4,7 @@ HealthEase is a full-stack healthcare appointment booking application that allow
 
 ---
 
-## 💻 Tech Stack
+## Tech Stack
 
 ### Frontend
 
@@ -36,7 +36,7 @@ HealthEase is a full-stack healthcare appointment booking application that allow
 
 ---
 
-## 🔐 Authentication
+## Authentication
 
 - **JWT Authentication:** Secure token-based authentication using JSON Web Tokens stored and passed via authorization headers.
 - **Google OAuth 2.0:** Integrated Google login and registration for one-click user sign-in.
@@ -45,7 +45,7 @@ HealthEase is a full-stack healthcare appointment booking application that allow
 
 ---
 
-## 🗄️ Database
+## Database
 
 - **Database:** MongoDB (cloud-hosted via MongoDB Atlas / local instance).
 - **ODM:** Mongoose for schema definitions, validation, and data relationships.
@@ -56,7 +56,7 @@ HealthEase is a full-stack healthcare appointment booking application that allow
 
 ---
 
-## 📖 API Documentation (Swagger UI)
+## API Documentation (Swagger UI)
 
 Interactive API documentation is generated using OpenAPI 3.0 specs and Swagger UI.
 
@@ -66,7 +66,7 @@ Interactive API documentation is generated using OpenAPI 3.0 specs and Swagger U
 
 ---
 
-## 🎨 UI Practices
+## UI Practices
 
 - **Single Design System:** Unified color palette, typography, spacing, and transition rules configured consistently throughout public and private views.
 - **In-House UI Components:** Reusable, bespoke UI components built without heavy third-party UI component libraries (e.g., `Button`, `Input`, `Select`, `Modal`, `Card`, `DatePicker`, `Pagination`, `Skeleton`, `Carousel`).
@@ -74,7 +74,7 @@ Interactive API documentation is generated using OpenAPI 3.0 specs and Swagger U
 
 ---
 
-## ⚙️ Software Engineering Practices
+## Software Engineering Practices
 
 - **Dedicated API Consumption Layer:** Centralized API service modules (`/src/api/`) separate HTTP requests and interceptors from UI logic, improving maintainability and reusability.
 - **Rate Limiting:** Protects backend endpoints using `express-rate-limit`:
